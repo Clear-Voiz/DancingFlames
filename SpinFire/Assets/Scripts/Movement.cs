@@ -17,10 +17,12 @@ public class Movement : MonoBehaviour
    private bool isgrounded = true;
    private Vector3 scaleFact;
    public Animator anima;
+   private BoostBar _bB;
 
    private void Awake()
    {
       anima = GetComponent<Animator>();
+      _bB = FindObjectOfType<BoostBar>();
    }
 
    private void Start()
@@ -94,14 +96,20 @@ public class Movement : MonoBehaviour
 
    private void Boost()
    {
-      if (Input.GetKeyDown(KeyCode.Space) && anima.GetBool("UpKick") == false)
+      if (Input.GetKeyDown(KeyCode.Space) && anima.GetBool("UpKick") == false && _bB.fuel>0f)
       {
          boost = true;
          anima.SetBool("isBoosting",true);
          _rig.velocity = Vector2.zero;
          _rig.gravityScale = 0;
       }
-      else if (anima.GetBool("UpKick"))  boost = false;
+      else if (_bB.fuel <= 0f)
+      {
+         boost = false;
+         anima.SetBool("isBoosting",false);
+         _rig.gravityScale = 1;
+      }
+      
       
       if (Input.GetKeyUp(KeyCode.Space))
       {
@@ -124,9 +132,11 @@ public class Movement : MonoBehaviour
          else if (isgrounded && boost)
          {
             anima.SetBool("UpKick",true);
+            _rig.gravityScale = 1;
             _rig.AddForce(Vector2.up * (2f+speed), ForceMode2D.Impulse);
             isgrounded = false;
             boost = false;
+            //anima.SetBool("isBoosting",false);
          }
       }
    }
