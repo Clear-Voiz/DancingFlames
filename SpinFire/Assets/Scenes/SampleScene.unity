@@ -179,9 +179,10 @@ GameObject:
   - component: {fileID: 95684475}
   - component: {fileID: 95684479}
   - component: {fileID: 95684480}
+  - component: {fileID: 95684481}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,7 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a515757f1409d9049af69bad2eb1af03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anima: {fileID: 0}
 --- !u!95 &95684476
 Animator:
   serializedVersion: 3
@@ -333,6 +333,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.44, y: 0.41427696}
   m_EdgeRadius: 0
+--- !u!114 &95684481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95684474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14fe6d7a87dbc404284fe5225fbeb78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rig: {fileID: 0}
+  face: 0
+  isGrounded: 0
+  fuel: 0
+  maxFuel: 0
+  scaleFact: {x: 0, y: 0, z: 0}
+  anima: {fileID: 0}
+  PS: {fileID: 1320140745578948250, guid: 490705938e3ff994e908259c6be6dee8, type: 3}
+  speed: 0
+  maxSpeed: 0
 --- !u!1 &173036143
 GameObject:
   m_ObjectHideFlags: 0
@@ -2281,72 +2303,3 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!1001 &8354272467015035767
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2136713889924361185, guid: a6358f044c914f749af81f54cd5f88d6,
-        type: 3}
-      propertyPath: m_Name
-      value: Particle System
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136713889924361188, guid: a6358f044c914f749af81f54cd5f88d6,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136713889924361188, guid: a6358f044c914f749af81f54cd5f88d6,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.92
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136713889924361188, guid: a6358f044c914f749af81f54cd5f88d6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136713889924361188, guid: a6358f044c914f749af81f54cd5f88d6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136713889924361188, guid: a6358f044c914f749af81f54cd5f88d6,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.48067564
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136713889924361188, guid: a6358f044c914f749af81f54cd5f88d6,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136713889924361188, guid: a6358f044c914f749af81f54cd5f88d6,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136713889924361188, guid: a6358f044c914f749af81f54cd5f88d6,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.8768985
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136713889924361188, guid: a6358f044c914f749af81f54cd5f88d6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136713889924361188, guid: a6358f044c914f749af81f54cd5f88d6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136713889924361188, guid: a6358f044c914f749af81f54cd5f88d6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -122.54101
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a6358f044c914f749af81f54cd5f88d6, type: 3}

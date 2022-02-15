@@ -11,17 +11,22 @@ public class BoostBar : MonoBehaviour
     public float maxFuel;
     private Image _bar;
     private Movement _mov;
+    private Player _player;
 
     private void Awake()
     {
         _bar = GetComponent<Image>();
-        _mov = FindObjectOfType<Movement>();
+        _player = FindObjectOfType<Player>();
+        /*_player = GameObject.Find("Player");
+        _mov = _player.GetComponent<Movement>();
+        _rig = _player.GetComponent<Rigidbody2D>();*/
+
     }
 
     private void Start()
     {
-        fuel = 20f;
-        maxFuel = 20f;
+        fuel = 40f;
+        maxFuel = 40f;
     }
 
     private void Update()
@@ -33,7 +38,7 @@ public class BoostBar : MonoBehaviour
 
     private void Boost()
     {
-        if (Input.GetKey(KeyCode.Space) && fuel >0f)
+        if (Input.GetKey(KeyCode.Space) && fuel >0f && _player.anima.GetBool("UpKick") == false)
         {
             isBoosting = true;
             fuel -= 0.2f;
