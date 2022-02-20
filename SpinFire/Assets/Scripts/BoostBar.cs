@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class BoostBar : MonoBehaviour
 {
-    public bool isBoosting = false;
-    public float fuel;
-    public float maxFuel;
     private Image _bar;
     private Movement _mov;
     private Player _player;
@@ -17,49 +14,56 @@ public class BoostBar : MonoBehaviour
     {
         _bar = GetComponent<Image>();
         _player = FindObjectOfType<Player>();
-        /*_player = GameObject.Find("Player");
-        _mov = _player.GetComponent<Movement>();
-        _rig = _player.GetComponent<Rigidbody2D>();*/
-
     }
 
     private void Start()
     {
-        fuel = 40f;
-        maxFuel = 40f;
+        _player.fuel = 40f;
+        _player.maxFuel = 40f;
     }
 
     private void Update()
     {
         Boost();
         Replenish();
-        _bar.fillAmount = fuel / maxFuel;
+        _bar.fillAmount = _player.fuel / _player.maxFuel;
     }
 
     private void Boost()
     {
-        if (Input.GetKey(KeyCode.Space) && fuel >0f && _player.anima.GetBool("UpKick") == false)
+        if (Input.GetKey(KeyCode.Space) && _player.fuel >0f && _player.currentState != Player.AniStates.UpKick.ToString())
         {
-            isBoosting = true;
-            fuel -= 0.2f;
+            _player.fuel -= 0.2f;
         }
-        else if (fuel <= 0f)
+        else if (_player.fuel <= 0f)
         {
-            fuel = 0f;
-            isBoosting = false;
+            _player.fuel = 0f;
+            _player.isBoosting = false;
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            isBoosting = false;
+            _player.isBoosting = false;
+            _player._rig.gravityScale = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && _player.currentState != Player.AniStates.UpKick.ToString() && _player.fuel>0f)
+        {
+            _player.isBoosting = true;
+            _player._rig.velocity = Vector2.zero;
+            _player._rig.gravityScale = 0;
+        }
+        else if (_player.fuel <= 0f)
+        {
+            _player.isBoosting = false;
+            _player._rig.gravityScale = 1;
         }
     }
 
     private void Replenish()
     {
-        if (fuel < maxFuel && !isBoosting)
+        if (_player.fuel < _player.maxFuel && !Input.GetKey(KeyCode.Space))
         {
-            fuel += 0.1f;
+            _player.fuel += 0.1f;
         }
     }
 }

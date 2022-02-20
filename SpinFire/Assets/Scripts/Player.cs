@@ -15,6 +15,12 @@ public class Player : MonoBehaviour
     public GameObject PS;
     public float speed;
     public float maxSpeed;
+    public bool isBoosting;
+    public string currentState;
+    public float speedGear; //changes between running animations depending on speed
+    
+
+    public enum AniStates {forwards, Jump, Suspend, Descend, Land, Boost, UpKick}
 
     private void Awake()
     {
@@ -29,6 +35,17 @@ public class Player : MonoBehaviour
         maxFuel = 20;
         fuel = maxFuel;
         scaleFact = new Vector3(1f, 1f, 1f);
-
+        speedGear = 4f;
     }
+
+    public void ChangeAniState(Enum recievedState)
+    {
+        string newState = recievedState.ToString();
+        if (currentState == newState) return;
+        
+        anima.Play(newState);
+
+        currentState = newState;
+    }
+
 }

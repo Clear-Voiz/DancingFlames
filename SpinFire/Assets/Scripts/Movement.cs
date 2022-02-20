@@ -2,16 +2,13 @@
 
 public class Movement : MonoBehaviour
 {
-   private bool boost;
    private float increment = 0.01f;
    private float accel = 0f;
    private bool groundColDir;
-   private BoostBar _bB;
    private Player _player;
 
    private void Awake()
    {
-      _bB = FindObjectOfType<BoostBar>();
       _player = FindObjectOfType<Player>();
    }
    
@@ -21,16 +18,23 @@ public class Movement : MonoBehaviour
 
       SetInMotion();
 
-      Boost();
-
       SetDireSpeed();
 
       Jump();
 
       FallAnimation();
-   }
 
-  
+      if (_player.currentState!=Player.AniStates.UpKick.ToString())
+      {
+         if (_player.speed >= _player.speedGear && _player.isBoosting)
+            _player.ChangeAniState(Player.AniStates.Boost);
+         else if (_player.isGrounded)
+         {
+            _player.ChangeAniState(Player.AniStates.forwards);
+         }
+      }
+   }
+   
 
    private void OnCollisionEnter2D(Collision2D other)
    {
@@ -40,8 +44,7 @@ public class Movement : MonoBehaviour
          if (other.GetContact(0).normal == Vector2.up)
          {
             _player.isGrounded = true;
-            _player.anima.SetInteger("isJumping", 4);
-            Debug.Log(_player.anima.GetInteger("isJumping"));
+            _player.ChangeAniState(Player.AniStates.Land);
             groundColDir = true;
          }
 
@@ -53,7 +56,6 @@ public class Movement : MonoBehaviour
             transform.localScale = _player.scaleFact;
             groundColDir = false;
          }
-
       }
    }
 
@@ -64,40 +66,16 @@ public class Movement : MonoBehaviour
          if (groundColDir) _player.isGrounded = false;
       }
    }
-   private void Boost()
-   {
-      if (Input.GetKeyDown(KeyCode.Space) && _player.anima.GetBool("UpKick") == false && _bB.fuel>0f)
-      {
-         boost = true;
-         _player.anima.SetBool("isBoosting",true);
-         _player._rig.velocity = Vector2.zero;
-         _player._rig.gravityScale = 0;
-      }
-      else if (_bB.fuel <= 0f)
-      {
-         boost = false;
-         _player.anima.SetBool("isBoosting",false);
-         _player._rig.gravityScale = 1;
-      }
-      
-      
-      if (Input.GetKeyUp(KeyCode.Space))
-      {
-         boost = false;
-         _player.anima.SetBool("isBoosting",false);
-         _player._rig.gravityScale = 1;
-      }
-   }
-   
+
    private void FallAnimation()
    {
-      if (_player._rig.velocity.y >= -1f && _player._rig.velocity.y <= 1f && _player.isGrounded == false)
+      if (_player._rig.velocity.y >= -1f && _player._rig.velocity.y <= 1f && _player.isGrounded == false && _player.currentState != Player.AniStates.Boost.ToString())
       {
-         _player.anima.SetInteger("isJumping", 2);
-         _player.anima.SetBool("UpKick", false);
+         _player.ChangeAniState(Player.AniStates.Suspend);
       }
 
-      if (_player._rig.velocity.y < -1f) _player.anima.SetInteger("isJumping", 3);
+      if (_player._rig.velocity.y < -1f)
+         _player.ChangeAniState(Player.AniStates.Descend);
    }
 
 
@@ -105,21 +83,20 @@ public class Movement : MonoBehaviour
    {
       if (Input.GetKeyDown(KeyCode.UpArrow))
       {
-         if (_player.isGrounded && boost==false)
+         if (_player.isGrounded && _player.isBoosting==false)
          {
             _player._rig.AddForce(Vector2.up * (2f+_player.speed), ForceMode2D.Impulse);
             _player.isGrounded = false;
-            _player.anima.SetInteger("isJumping",1);
+            _player.ChangeAniState(Player.AniStates.Jump);
          }
-         else if (_player.isGrounded && boost)
+         else if (_player.isGrounded && _player.isBoosting)
          {
-            _player.anima.SetBool("UpKick",true);
+            _player.ChangeAniState(Player.AniStates.UpKick);
             _player._rig.gravityScale = 1;
             _player._rig.AddForce(Vector2.up * (2f+_player.speed), ForceMode2D.Impulse);
             _player.isGrounded = false;
-            boost = false;
+            _player.isBoosting = false;
             Instantiate(_player.PS, transform.position, Quaternion.Euler(0f,0f,-122f));
-            //anima.SetBool("isBoosting",false);
          }
       }
    }
@@ -130,7 +107,7 @@ public class Movement : MonoBehaviour
          _player.speed += increment;
       if (_player.speed > _player.maxSpeed + accel)
          _player.speed -= increment;
-      if (boost)
+      if (_player.isBoosting)
       {
          _player.maxSpeed = 6f;
          increment = 0.1f;
