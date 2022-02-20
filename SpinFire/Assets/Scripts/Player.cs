@@ -16,11 +16,12 @@ public class Player : MonoBehaviour
     public float speed;
     public float maxSpeed;
     public bool isBoosting;
+    public bool isWallSliding;
     public string currentState;
     public float speedGear; //changes between running animations depending on speed
     
 
-    public enum AniStates {forwards, Jump, Suspend, Descend, Land, Boost, UpKick}
+    public enum AniStates {forwards, Jump, Suspend, Descend, Land, Boost, UpKick, WallSlide, LenaKick,PierceKick}
 
     private void Awake()
     {
@@ -32,7 +33,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         face = 1f;
-        maxFuel = 20;
+        maxFuel = 40;
         fuel = maxFuel;
         scaleFact = new Vector3(1f, 1f, 1f);
         speedGear = 4f;

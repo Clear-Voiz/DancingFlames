@@ -16,12 +16,6 @@ public class BoostBar : MonoBehaviour
         _player = FindObjectOfType<Player>();
     }
 
-    private void Start()
-    {
-        _player.fuel = 40f;
-        _player.maxFuel = 40f;
-    }
-
     private void Update()
     {
         Boost();
@@ -39,12 +33,14 @@ public class BoostBar : MonoBehaviour
         {
             _player.fuel = 0f;
             _player.isBoosting = false;
+            _player.isWallSliding = false;
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
             _player.isBoosting = false;
             _player._rig.gravityScale = 1;
+            _player.isWallSliding = false;
         }
         if (Input.GetKeyDown(KeyCode.Space) && _player.currentState != Player.AniStates.UpKick.ToString() && _player.fuel>0f)
         {
@@ -56,6 +52,7 @@ public class BoostBar : MonoBehaviour
         {
             _player.isBoosting = false;
             _player._rig.gravityScale = 1;
+            _player.isWallSliding = false;
         }
     }
 

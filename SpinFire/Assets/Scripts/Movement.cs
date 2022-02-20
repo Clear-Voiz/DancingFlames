@@ -40,7 +40,7 @@ public class Movement : MonoBehaviour
    {
       if (other.gameObject.CompareTag("Ground"))
       {
-         Debug.Log(other.GetContact(0).normal);
+         Debug.Log(other.GetContact(0).point);
          if (other.GetContact(0).normal == Vector2.up)
          {
             _player.isGrounded = true;
@@ -50,11 +50,22 @@ public class Movement : MonoBehaviour
 
          if (other.GetContact(0).normal == Vector2.right || other.GetContact(0).normal == Vector2.left)
          {
-            _player.speed = 0;
+            
+            
+            groundColDir = false;
+            if (_player.isBoosting)
+            {
+               _player.isWallSliding = true;
+               _player.ChangeAniState(Player.AniStates.WallSlide);
+               _player.isGrounded = false;
+            }
+            else
+            {
+               _player.speed = 0;
             _player.face *= -1;
             _player.scaleFact.x = _player.face;
             transform.localScale = _player.scaleFact;
-            groundColDir = false;
+            }
          }
       }
    }
@@ -69,7 +80,7 @@ public class Movement : MonoBehaviour
 
    private void FallAnimation()
    {
-      if (_player._rig.velocity.y >= -1f && _player._rig.velocity.y <= 1f && _player.isGrounded == false && _player.currentState != Player.AniStates.Boost.ToString())
+      if (_player._rig.velocity.y >= -1f && _player._rig.velocity.y <= 1f && _player.isGrounded == false && !_player.isBoosting && !_player.isWallSliding)
       {
          _player.ChangeAniState(Player.AniStates.Suspend);
       }
@@ -129,6 +140,10 @@ public class Movement : MonoBehaviour
             transform.localScale = _player.scaleFact;
             _player.speed = 0f;
          }
+         else
+         {
+            _player.ChangeAniState(_player.isBoosting?Player.AniStates.PierceKick:Player.AniStates.LenaKick);
+         }
       }
 
       if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -140,10 +155,15 @@ public class Movement : MonoBehaviour
             transform.localScale = _player.scaleFact;
             _player.speed = 0f;
          }
+         else
+         {
+            _player.ChangeAniState(_player.isBoosting?Player.AniStates.PierceKick:Player.AniStates.LenaKick);
+            //Invoke("_player.ChangeAniState(Player.AniStates.forwards)",_player.anima.GetCurrentAnimatorStateInfo(0).length);
+         }
       }
    }
    private void SetInMotion()
-   {
-      transform.Translate(_player.face * (_player.speed * Time.deltaTime + accel), 0f, 0f);
+   { 
+      transform.Translate(_player.isWallSliding?0f:_player.face * (_player.speed * Time.deltaTime + accel),_player.isWallSliding?_player.speed * Time.deltaTime + accel:0f,0f);
    }
 }
