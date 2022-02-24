@@ -18,10 +18,6 @@ public class Movement : MonoBehaviour
 
       SetInMotion();
 
-      SetDireSpeed();
-
-      Jump();
-
       FallAnimation();
 
       if (_player.currentState!=Player.AniStates.UpKick.ToString())
@@ -89,29 +85,6 @@ public class Movement : MonoBehaviour
          _player.ChangeAniState(Player.AniStates.Descend);
    }
 
-
-   private void Jump()
-   {
-      if (Input.GetKeyDown(KeyCode.UpArrow))
-      {
-         if (_player.isGrounded && _player.isBoosting==false)
-         {
-            _player._rig.AddForce(Vector2.up * (2f+_player.speed), ForceMode2D.Impulse);
-            _player.isGrounded = false;
-            _player.ChangeAniState(Player.AniStates.Jump);
-         }
-         else if (_player.isGrounded && _player.isBoosting)
-         {
-            _player.ChangeAniState(Player.AniStates.UpKick);
-            _player._rig.gravityScale = 1;
-            _player._rig.AddForce(Vector2.up * (2f+_player.speed), ForceMode2D.Impulse);
-            _player.isGrounded = false;
-            _player.isBoosting = false;
-            Instantiate(_player.PS, transform.position, Quaternion.Euler(0f,0f,-122f));
-         }
-      }
-   }
-
    private void RegulateSpeed()
    {
       if (_player.speed < _player.maxSpeed + accel)
@@ -129,39 +102,7 @@ public class Movement : MonoBehaviour
          increment = 0.1f;
       }
    }
-   private void SetDireSpeed()
-   {
-      if (Input.GetKeyDown(KeyCode.LeftArrow))
-      {
-         if (_player.face == 1f)
-         {
-            _player.face = -1f;
-            _player.scaleFact.x = _player.face;
-            transform.localScale = _player.scaleFact;
-            _player.speed = 0f;
-         }
-         else
-         {
-            _player.ChangeAniState(_player.isBoosting?Player.AniStates.PierceKick:Player.AniStates.LenaKick);
-         }
-      }
-
-      if (Input.GetKeyDown(KeyCode.RightArrow))
-      {
-         if (_player.face == -1f)
-         {
-            _player.face = 1f;
-            _player.scaleFact.x = _player.face;
-            transform.localScale = _player.scaleFact;
-            _player.speed = 0f;
-         }
-         else
-         {
-            _player.ChangeAniState(_player.isBoosting?Player.AniStates.PierceKick:Player.AniStates.LenaKick);
-            //Invoke("_player.ChangeAniState(Player.AniStates.forwards)",_player.anima.GetCurrentAnimatorStateInfo(0).length);
-         }
-      }
-   }
+   
    private void SetInMotion()
    { 
       transform.Translate(_player.isWallSliding?0f:_player.face * (_player.speed * Time.deltaTime + accel),_player.isWallSliding?_player.speed * Time.deltaTime + accel:0f,0f);
