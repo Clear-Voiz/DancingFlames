@@ -7,10 +7,12 @@ using UnityEngine.EventSystems;
 public class LeftActions : MonoBehaviour,IPointerDownHandler
 {
     private Player _player;
+    private GameObject KickFX;
 
     private void Awake()
     {
         _player = FindObjectOfType<Player>();
+        KickFX = Resources.Load("KickFX") as GameObject;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -24,8 +26,19 @@ public class LeftActions : MonoBehaviour,IPointerDownHandler
         }
         else
         {
-            _player.ChangeAniState(_player.isBoosting?Player.AniStates.PierceKick:Player.AniStates.LenaKick);
+            if (_player.isBoosting)
+                _player.ChangeAniState(Player.AniStates.PierceKick);
+            else
+            {
+                _player.ChangeAniState(Player.AniStates.LenaKick);
+                Invoke("HitboxInstantiate",0.2f);
+            }
         }
+    }
+    
+    private void HitboxInstantiate()
+    {
+        Instantiate(KickFX, _player.transform);
     }
     
 }

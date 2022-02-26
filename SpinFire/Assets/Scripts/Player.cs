@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D _rig;
     public float face;
     public bool isGrounded;
+    public bool isAttacking;
     public float fuel;
     public float maxFuel;
     public Vector3 scaleFact;
@@ -21,7 +22,7 @@ public class Player : MonoBehaviour
     public float speedGear; //changes between running animations depending on speed
     
 
-    public enum AniStates {forwards, Jump, Suspend, Descend, Land, Boost, UpKick, WallSlide, LenaKick,PierceKick}
+    public enum AniStates {forwards, Jump, Suspend, Descend, Land, Boost, UpKick, WallSlide, LenaKick,PierceKick,FromAbove,Dive, AerialSweep,Dash}
 
     private void Awake()
     {

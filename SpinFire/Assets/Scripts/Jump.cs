@@ -28,7 +28,7 @@ public class Jump : MonoBehaviour,IPointerDownHandler
             _player._rig.AddForce(Vector2.up * (6f), ForceMode2D.Impulse);
             _player.isGrounded = false;
             _player.isBoosting = false;
-            Instantiate(_player.PS, transform.position, Quaternion.Euler(0f, 0f, -122f));
+            Instantiate(_player.PS, transform.position, Quaternion.identity); //Quaternion.Euler(0f, 0f, -122f)
         }
 
 

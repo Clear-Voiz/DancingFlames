@@ -6,10 +6,12 @@ public class Movement : MonoBehaviour
    private float accel = 0f;
    private bool groundColDir;
    private Player _player;
+   private GameObject Up_Impulse;
 
    private void Awake()
    {
       _player = FindObjectOfType<Player>();
+      Up_Impulse = Resources.Load("Upwards_Impulse") as GameObject;
    }
    
    private void Update()
@@ -22,9 +24,9 @@ public class Movement : MonoBehaviour
 
       if (_player.currentState!=Player.AniStates.UpKick.ToString())
       {
-         if (_player.speed >= _player.speedGear && _player.isBoosting)
+         if (_player.speed >= _player.speedGear && _player.isBoosting && _player.currentState != "WallSlide")
             _player.ChangeAniState(Player.AniStates.Boost);
-         else if (_player.isGrounded)
+         else if (_player.isGrounded && _player.currentState != "WallSlide")
          {
             _player.ChangeAniState(Player.AniStates.forwards);
          }
@@ -36,7 +38,6 @@ public class Movement : MonoBehaviour
    {
       if (other.gameObject.CompareTag("Ground"))
       {
-         Debug.Log(other.GetContact(0).point);
          if (other.GetContact(0).normal == Vector2.up)
          {
             _player.isGrounded = true;
@@ -46,13 +47,12 @@ public class Movement : MonoBehaviour
 
          if (other.GetContact(0).normal == Vector2.right || other.GetContact(0).normal == Vector2.left)
          {
-            
-            
             groundColDir = false;
             if (_player.isBoosting)
             {
                _player.isWallSliding = true;
                _player.ChangeAniState(Player.AniStates.WallSlide);
+               Instantiate(Up_Impulse, _player.transform.position, Quaternion.identity);
                _player.isGrounded = false;
             }
             else
@@ -76,12 +76,12 @@ public class Movement : MonoBehaviour
 
    private void FallAnimation()
    {
-      if (_player._rig.velocity.y >= -1f && _player._rig.velocity.y <= 1f && _player.isGrounded == false && !_player.isBoosting && !_player.isWallSliding)
+      if (_player._rig.velocity.y >= -1f && _player._rig.velocity.y <= 1f && _player.isGrounded == false && !_player.isBoosting && !_player.isWallSliding && _player.currentState != "Dive" && _player.currentState != "AerialSweep")
       {
          _player.ChangeAniState(Player.AniStates.Suspend);
       }
 
-      if (_player._rig.velocity.y < -1f)
+      if (_player._rig.velocity.y < -1f  && _player.currentState != "Dive" && _player.currentState != "AerialSweep")
          _player.ChangeAniState(Player.AniStates.Descend);
    }
 
