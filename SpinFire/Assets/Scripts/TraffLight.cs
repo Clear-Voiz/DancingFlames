@@ -44,7 +44,11 @@ public class TraffLight : MonoBehaviour
             }
             else if (state == 2)
             {
+                _player.ChangeAniState(Player.AniStates.Lenalee_stand);
                 _player.speed = 0;
+                Rigidbody2D _rig = _player.GetComponent<Rigidbody2D>();
+                _rig.velocity = Vector2.zero;
+                Debug.Log(_player.currentState);
             }
         }
     }

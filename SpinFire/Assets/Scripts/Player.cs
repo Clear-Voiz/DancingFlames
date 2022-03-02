@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     public float speedGear; //changes between running animations depending on speed
     
 
-    public enum AniStates {forwards, Jump, Suspend, Descend, Land, Boost, UpKick, WallSlide, LenaKick,PierceKick,FromAbove,Dive, AerialSweep,Dash}
+    public enum AniStates {forwards, Jump, Suspend, Descend, Land, Boost, UpKick, WallSlide, LenaKick,PierceKick,FromAbove,Dive, AerialSweep,Dash,Lenalee_stand}
 
     private void Awake()
     {

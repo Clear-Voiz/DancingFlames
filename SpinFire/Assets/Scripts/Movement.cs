@@ -104,7 +104,10 @@ public class Movement : MonoBehaviour
    }
    
    private void SetInMotion()
-   { 
-      transform.Translate(_player.isWallSliding?0f:_player.face * (_player.speed * Time.deltaTime + accel),_player.isWallSliding?_player.speed * Time.deltaTime + accel:0f,0f);
+   {
+      if (_player.currentState != "Dive" && _player.currentState != "Lenalee_stand")
+      {
+         transform.Translate(_player.isWallSliding?0f:_player.face * (_player.speed * Time.deltaTime + accel),_player.isWallSliding?_player.speed * Time.deltaTime + accel:0f,0f);
+      }
    }
 }
