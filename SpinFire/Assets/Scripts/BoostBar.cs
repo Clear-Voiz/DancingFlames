@@ -37,18 +37,11 @@ public class BoostBar : MonoBehaviour
             _player.isWallSliding = false;
             
         }
-
-        /*if (!isClicked)
-        {
-            _player.isBoosting = false;
-            _player._rig.gravityScale = 1;
-            _player.isWallSliding = false;
-        }*/
-        if (isClicked && _player.currentState != Player.AniStates.UpKick.ToString() && _player.fuel>0f)
+        if (isClicked && _player.fuel>0f)
         {
             _player.isBoosting = true;
-            _player._rig.velocity = Vector2.zero;
-            _player._rig.gravityScale = 0;
+            /*_player._rig.velocity = Vector2.zero;
+            _player._rig.gravityScale = 0;*/
         }
         else if (_player.fuel <= 0f)
         {
@@ -62,7 +55,7 @@ public class BoostBar : MonoBehaviour
     {
         if (_player.fuel < _player.maxFuel && !isClicked)
         {
-            _player.fuel += 0.1f;
+            _player.fuel += 0.05f;
         }
     }
 }

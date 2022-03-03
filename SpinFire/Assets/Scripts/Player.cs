@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     public bool isBoosting;
     public bool isWallSliding;
     public string currentState;
+    public float increment = 0.01f;
+    public float accel = 0f;
     public float speedGear; //changes between running animations depending on speed
     
 
@@ -48,6 +50,14 @@ public class Player : MonoBehaviour
         anima.Play(newState);
 
         currentState = newState;
+    }
+    
+    public void RegulateSpeed()
+    {
+        if (speed < maxSpeed + accel)
+            speed += increment;
+        if (speed > maxSpeed + accel)
+            speed -= increment;
     }
 
 }

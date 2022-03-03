@@ -56,7 +56,7 @@ public class DeadZone : MonoBehaviour
             Rigidbody2D _rig = _player.GetComponent<Rigidbody2D>();
             _rig.Sleep();
             _player.transform.position = spawnPoint.position;
-            _player.gameObject.AddComponent<Movement>();
+            //_player.gameObject.AddComponent<Movement>();
             _cam.gameObject.AddComponent<FollowCam>();
             _rig.WakeUp();
             secs = 1f;

@@ -10,13 +10,11 @@ public class Referencer : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
    public BoostBar BB;
    public Player _player;
-   public Movement movement;
 
    private void Awake()
    {
       BB = FindObjectOfType<BoostBar>();
       _player = FindObjectOfType<Player>();
-      movement = FindObjectOfType<Movement>();
    }
 
    public void OnPointerDown(PointerEventData eventData)

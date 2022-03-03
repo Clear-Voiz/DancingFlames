@@ -19,7 +19,7 @@ public class Jump : MonoBehaviour,IPointerDownHandler
         {
             _player._rig.AddForce(Vector2.up * (2f+_player.speed), ForceMode2D.Impulse);
             _player.isGrounded = false;
-            _player.ChangeAniState(Player.AniStates.Jump);
+           // _player.ChangeAniState(Player.AniStates.Jump);
         }
         else if (_player.isGrounded && _player.isBoosting)
         {

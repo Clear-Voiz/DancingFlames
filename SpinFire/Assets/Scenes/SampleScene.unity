@@ -776,9 +776,9 @@ GameObject:
   - component: {fileID: 95684478}
   - component: {fileID: 95684477}
   - component: {fileID: 95684476}
-  - component: {fileID: 95684475}
   - component: {fileID: 95684479}
   - component: {fileID: 95684480}
+  - component: {fileID: 95684475}
   - component: {fileID: 95684481}
   m_Layer: 0
   m_Name: Player
@@ -796,9 +796,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 95684474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a515757f1409d9049af69bad2eb1af03, type: 3}
+  m_Script: {fileID: 11500000, guid: 71ab845273901894880d42801e55a085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!95 &95684476
 Animator:
   serializedVersion: 3
@@ -880,8 +881,8 @@ Transform:
   m_LocalPosition: {x: 1.52, y: -1.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2136355793}
   - {fileID: 296944116}
+  - {fileID: 2136355793}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -958,6 +959,8 @@ MonoBehaviour:
   isBoosting: 0
   isWallSliding: 0
   currentState: 
+  increment: 0.01
+  accel: 0
   speedGear: 0
 --- !u!1 &173036143
 GameObject:
@@ -1191,7 +1194,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 95684478}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &296944117
 TrailRenderer:
@@ -1242,7 +1245,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.13889205
+        value: 0.027785182
         inSlope: -0.048491135
         outSlope: -0.048491135
         tangentMode: 0
@@ -1250,14 +1253,23 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 1
       - serializedVersion: 3
-        time: 0.07025153
-        value: 0.20569675
+        time: 0.03200002
+        value: 0.13625062
         inSlope: 0.3245701
         outSlope: 0.3245701
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.3081912
+      - serializedVersion: 3
+        time: 0.071504556
+        value: 0.21328914
+        inSlope: 0.13631865
+        outSlope: 0.13631865
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
         value: 0
@@ -1570,10 +1582,10 @@ RectTransform:
   m_Father: {fileID: 1305805414}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.832, y: 0.061000004}
-  m_AnchorMax: {x: 0.90900004, y: 0.2016483}
-  m_AnchoredPosition: {x: -0.5, y: 0.5}
-  m_SizeDelta: {x: 0.5937805, y: -0.31171036}
+  m_AnchorMin: {x: 0.8215834, y: 0.015243904}
+  m_AnchorMax: {x: 0.9004237, y: 0.15300001}
+  m_AnchoredPosition: {x: 1.5, y: -0.5}
+  m_SizeDelta: {x: -0.40621948, y: 0.68828964}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &500944224
 MonoBehaviour:
@@ -2172,15 +2184,15 @@ RectTransform:
   m_GameObject: {fileID: 959429746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4531, y: 1.4531, z: 1.4531}
   m_Children: []
   m_Father: {fileID: 1305805414}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.832, y: 0.22600001}
-  m_AnchorMax: {x: 0.90900004, y: 0.35900003}
-  m_AnchoredPosition: {x: -0.5, y: 0.94999695}
-  m_SizeDelta: {x: 0.5937805, y: 1.5143738}
+  m_AnchorMin: {x: 0.16043054, y: 0.061000004}
+  m_AnchorMax: {x: 0.277868, y: 0.25}
+  m_AnchoredPosition: {x: -1, y: -2}
+  m_SizeDelta: {x: -23.40622, y: -16.485626}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &959429748
 MonoBehaviour:
@@ -2246,7 +2258,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BB: {fileID: 173036147}
   _player: {fileID: 0}
-  movement: {fileID: 0}
 --- !u!114 &959429752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3740,10 +3751,10 @@ RectTransform:
   m_Father: {fileID: 1305805414}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.7436042, y: 0.22600001}
-  m_AnchorMax: {x: 0.8215834, y: 0.35900003}
-  m_AnchoredPosition: {x: 0.5, y: 0.94999695}
-  m_SizeDelta: {x: -0.5767441, y: 1.5143738}
+  m_AnchorMin: {x: 0.73845845, y: 0.17725806}
+  m_AnchorMax: {x: 0.8215834, y: 0.30800003}
+  m_AnchoredPosition: {x: -1.5, y: 0.94999695}
+  m_SizeDelta: {x: -3.576744, y: 2.5143738}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1261891531
 MonoBehaviour:
@@ -4920,10 +4931,10 @@ RectTransform:
   m_Father: {fileID: 1305805414}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.832, y: 0.38034147}
-  m_AnchorMax: {x: 0.90900004, y: 0.51829267}
-  m_AnchoredPosition: {x: -0.5, y: 0}
-  m_SizeDelta: {x: 0.5937805, y: 0.5098114}
+  m_AnchorMin: {x: 0.8215834, y: 0.3262927}
+  m_AnchorMax: {x: 0.90900004, y: 0.4695122}
+  m_AnchoredPosition: {x: -1, y: 0.49999237}
+  m_SizeDelta: {x: -5.4062195, y: -1.4901886}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1859274174
 MonoBehaviour:
@@ -5148,7 +5159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1935188627
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5414,10 +5425,10 @@ RectTransform:
   m_Father: {fileID: 1305805414}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.9181146, y: 0.22600001}
-  m_AnchorMax: {x: 0.9947917, y: 0.35900003}
-  m_AnchoredPosition: {x: -0.001953125, y: 0.9499054}
-  m_SizeDelta: {x: 2.1415863, y: 1.5143738}
+  m_AnchorMin: {x: 0.90900004, y: 0.17725806}
+  m_AnchorMax: {x: 0.99300003, y: 0.30800003}
+  m_AnchoredPosition: {x: -0.5019531, y: 0.9499054}
+  m_SizeDelta: {x: -1.8584137, y: 2.5143738}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2025186651
 MonoBehaviour:
@@ -5822,7 +5833,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 95684478}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &2136355794
 TrailRenderer:
@@ -5873,7 +5884,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.13889205
+        value: 0.027785182
         inSlope: -0.048491135
         outSlope: -0.048491135
         tangentMode: 0
@@ -5881,14 +5892,23 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 1
       - serializedVersion: 3
-        time: 0.07025153
-        value: 0.20569675
+        time: 0.03200002
+        value: 0.13625062
         inSlope: 0.3245701
         outSlope: 0.3245701
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.3081912
+      - serializedVersion: 3
+        time: 0.071504556
+        value: 0.21328914
+        inSlope: 0.13631865
+        outSlope: 0.13631865
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
         value: 0
