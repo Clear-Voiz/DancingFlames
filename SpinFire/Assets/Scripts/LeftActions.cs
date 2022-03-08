@@ -40,5 +40,4 @@ public class LeftActions : MonoBehaviour,IPointerDownHandler
     {
         Instantiate(KickFX, _player.transform);
     }
-    
 }

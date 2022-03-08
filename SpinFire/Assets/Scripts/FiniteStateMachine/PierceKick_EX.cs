@@ -18,11 +18,16 @@ public class PierceKick_EX : CharaBaseState
         Chronological(machine);
     }
 
-    public override void OnCollisionEnter(CharaStateManager machine, Collision other)
+    public override void ExitState(CharaStateManager machine)
     {
         
     }
-    
+
+    public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
+    {
+        
+    }
+
     void Chronological(CharaStateManager machine)
     {
         if (secs > 0f)

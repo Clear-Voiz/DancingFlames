@@ -19,12 +19,20 @@ public class Jump_EX : CharaBaseState
 
         if (machine.player.isGrounded) machine.SwitchState(machine.land);
         
+        if (Input.GetKeyDown(KeyCode.DownArrow)) machine.SwitchState(machine.dive);
+        
         machine.transform.Translate(machine.player.face * (machine.player.speed * Time.deltaTime + machine.player.accel),0f,0f);
 
     }
 
-    public override void OnCollisionEnter(CharaStateManager machine, Collision other)
+    public override void ExitState(CharaStateManager machine)
     {
         
     }
+
+    public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
+    {
+        
+    }
+    
 }

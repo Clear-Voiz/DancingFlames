@@ -19,14 +19,14 @@ public class Referencer : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 
    public void OnPointerDown(PointerEventData eventData)
    {
-      BB.isClicked = true;
+     // BB.isClicked = true;
    }
 
    public void OnPointerUp(PointerEventData eventData)
    {
-      BB.isClicked = false;
+     /* BB.isClicked = false;
       _player.isBoosting = false;
       _player._rig.gravityScale = 1;
-      _player.isWallSliding = false;
+      _player.isWallSliding = false;*/
    }
 }

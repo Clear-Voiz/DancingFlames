@@ -19,6 +19,24 @@ public class Forwards : CharaBaseState
         
         /*if (machine.player.speed >= machine.player.speedGear)
             machine.SwitchState(machine.boost);*/
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (machine.player.face == 1f) machine.SwitchState(machine.lenakick);
+            else
+            {
+                machine.ReverseFace();
+            }
+        }
+        
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (machine.player.face == -1f) machine.SwitchState(machine.lenakick);
+            else
+            {
+                machine.ReverseFace();
+            }
+        }
         
         if (machine.player.isBoosting) machine.SwitchState(machine.boost);
 
@@ -28,8 +46,18 @@ public class Forwards : CharaBaseState
         //if(!machine.player.isGrounded) machine.SwitchState(machine.suspended);   convertir-ho a raycast
     }
 
-    public override void OnCollisionEnter(CharaStateManager machine, Collision other)
+    public override void ExitState(CharaStateManager machine)
     {
         
     }
+
+    public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
+    {
+        if (other.GetContact(0).normal == Vector2.right || other.GetContact(0).normal == Vector2.left)
+        {
+            machine.player.groundColDir = false;
+            //machine.ReverseFace();
+        }  
+    }
+    
 }

@@ -18,7 +18,12 @@ public class LenaKick_EX : CharaBaseState
         Chronological(machine);
     }
 
-    public override void OnCollisionEnter(CharaStateManager machine, Collision other)
+    public override void ExitState(CharaStateManager machine)
+    {
+        
+    }
+
+    public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
         
     }

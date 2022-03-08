@@ -21,9 +21,8 @@ public class DownActions : MonoBehaviour,IPointerDownHandler
             {
                 _player.ChangeAniState(Player.AniStates.Dive);
                 _player.speed = 0;
-                Rigidbody2D _rig = _player.GetComponent<Rigidbody2D>();
-                _rig.velocity = Vector2.zero;
-                _rig.AddForce(Vector2.down * 6f, ForceMode2D.Impulse);
+                _player._rig.velocity = Vector2.zero;
+                _player._rig.AddForce(Vector2.down * 6f, ForceMode2D.Impulse);
             }
         }
         else

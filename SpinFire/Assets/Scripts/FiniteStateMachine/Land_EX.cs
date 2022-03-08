@@ -22,9 +22,14 @@ public class Land_EX : CharaBaseState
         if (Input.GetKeyDown(KeyCode.UpArrow)) machine.SwitchState(machine.jump);
     }
 
-    public override void OnCollisionEnter(CharaStateManager machine, Collision other)
+    public override void ExitState(CharaStateManager machine)
     {
-       
+        
+    }
+
+    public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
+    {
+        
     }
 
     void Chronological(CharaStateManager machine)

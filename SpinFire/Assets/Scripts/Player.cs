@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Rigidbody2D _rig;
+    public BoxCollider2D boxCollider2D;
     public float face;
     public bool isGrounded;
     public bool isAttacking;
@@ -20,7 +21,8 @@ public class Player : MonoBehaviour
     public bool isWallSliding;
     public string currentState;
     public float increment = 0.01f;
-    public float accel = 0f;
+    public float accel;
+    public bool groundColDir;
     public float speedGear; //changes between running animations depending on speed
     
 
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour
         _rig = GetComponent<Rigidbody2D>();
         anima = GetComponent<Animator>();
         maxSpeed = 3f;
+        boxCollider2D = GetComponent<BoxCollider2D>();
     }
 
     private void Start()
