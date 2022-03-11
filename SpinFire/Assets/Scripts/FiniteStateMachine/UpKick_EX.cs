@@ -20,7 +20,6 @@ public class UpKick_EX : CharaBaseState
     {
         machine.transform.Translate(machine.player.face * (machine.player.speed * Time.deltaTime + machine.player.accel),0f,0f);
         Chronological(machine);
-        if (machine.player.isGrounded) machine.SwitchState(machine.land);
     }
 
     public override void ExitState(CharaStateManager machine)
@@ -32,7 +31,17 @@ public class UpKick_EX : CharaBaseState
     {
         
     }
-    
+
+    public override void OnEnable(CharaStateManager machine)
+    {
+        
+    }
+
+    public override void OnDisable(CharaStateManager machine)
+    {
+        
+    }
+
 
     void Chronological(CharaStateManager machine)
     {

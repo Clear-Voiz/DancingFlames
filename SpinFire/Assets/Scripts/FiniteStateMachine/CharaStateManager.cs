@@ -19,6 +19,11 @@ public class CharaStateManager : MonoBehaviour
     public Aerial_Sweep_EX aerialSweep = new Aerial_Sweep_EX();
     public WallSlide_EX wallSlide = new WallSlide_EX();
     public PierceKick_EX pierceKick = new PierceKick_EX();
+    public Activate ring;
+    
+    //Buttons
+    public RightActions rightActions;
+    public LeftActions leftActions;
 
     public Player player;
     public BoostBar BB;
@@ -27,10 +32,13 @@ public class CharaStateManager : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         BB = FindObjectOfType<BoostBar>();
+        rightActions = FindObjectOfType<RightActions>();
+        leftActions = FindObjectOfType<LeftActions>();
     }
 
     void Start()
     {
+        ring = new Activate(3);
         currentState = _forwards;
         currentState.EnterState(this);
     }
@@ -51,7 +59,6 @@ public class CharaStateManager : MonoBehaviour
             player.isBoosting = false;
         }
         
-       
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -61,18 +68,16 @@ public class CharaStateManager : MonoBehaviour
         {
             if (other.GetContact(0).normal == Vector2.up)
             {
-                player.isGrounded = true;
-                player.groundColDir = true;
+                //player.wallColl = true;
             }
 
             if (other.GetContact(0).normal == Vector2.right || other.GetContact(0).normal == Vector2.left)
             {
-                player.groundColDir = false;
+                player.wallColl = false;
                 if (player.isBoosting)
                 {
-                    player.isWallSliding = true;
+                    //player.isWallSliding = true;
                     //Instantiate(player.Up_Impulse, player.transform.position, Quaternion.identity);
-                    //player.isGrounded = false;
                 }
             }  
         }
@@ -82,15 +87,26 @@ public class CharaStateManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            player.isGrounded = false;
-            //
+            
             //player.isWallSliding = false;
         }
+    }
+
+    private void OnEnable()
+    {
+        if (currentState!=null) currentState.OnEnable(this);
+    }
+
+    private void OnDisable()
+    {
+        currentState.OnDisable(this);
     }
 
     private void FixedUpdate()
     {
         IsGrounded();
+        WallColl();
+        
     }
 
     public void ReverseFace()
@@ -98,11 +114,16 @@ public class CharaStateManager : MonoBehaviour
         player.face *= -1f;
         player.scaleFact.x = player.face;
         player.transform.localScale = player.scaleFact;
+
+        if (Input.GetKeyDown(KeyCode.R)) //de recarga
+        {
+            //StartCoroutine(Activate.)
+        }
     }
 
-    private bool IsGrounded()
+    private void IsGrounded()
     {
-        var extraHeight = 0.2f;
+        var extraHeight = 0.01f;
         RaycastHit2D raycastHit = Physics2D.BoxCast(player.boxCollider2D.bounds.center, player.boxCollider2D.size, 0f, Vector2.down,
             extraHeight,1<<8);
         Color rayColor;
@@ -121,7 +142,31 @@ public class CharaStateManager : MonoBehaviour
         Debug.DrawRay(player.boxCollider2D.bounds.center - new Vector3(player.boxCollider2D.bounds.extents.x,player.boxCollider2D.bounds.extents.y+extraHeight),Vector2.right * player.boxCollider2D.bounds.extents.x*2f,rayColor);
         //Debug.Log(raycastHit.collider);
         
-        return raycastHit.collider != null;
+        player.isGrounded = raycastHit.collider != null;
+    }
+
+    private void WallColl()
+    {
+        var extraHeight = 0.1f;
+        RaycastHit2D raycastHit = Physics2D.Raycast(player.boxCollider2D.bounds.center + new Vector3(0f,-player.boxCollider2D.bounds.extents.y), Vector2.right * player.face,
+            player.boxCollider2D.bounds.extents.x + extraHeight, 1 << 8);
+        
+        Color rayColor;
+
+        if (raycastHit.collider != null)
+        {
+            rayColor = Color.green;
+            Debug.Log(player.wallColl);
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+        
+        Debug.DrawRay(player.boxCollider2D.bounds.center + new Vector3(0f,-player.boxCollider2D.bounds.extents.y),Vector2.right*player.face*(player.boxCollider2D.bounds.extents.x+extraHeight),rayColor);
+        //Debug.Log(raycastHit.collider);
+        
+        player.wallColl = raycastHit.collider != null;
     }
 
     public void SwitchState(CharaBaseState state)

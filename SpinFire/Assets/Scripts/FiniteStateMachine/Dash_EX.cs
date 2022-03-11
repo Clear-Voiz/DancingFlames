@@ -29,6 +29,16 @@ public class Dash_EX : CharaBaseState
         
     }
 
+    public override void OnEnable(CharaStateManager machine)
+    {
+        
+    }
+
+    public override void OnDisable(CharaStateManager machine)
+    {
+       
+    }
+
     void Chronological(CharaStateManager machine)
     {
         if (secs > 0f)

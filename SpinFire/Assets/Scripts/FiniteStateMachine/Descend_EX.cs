@@ -15,6 +15,9 @@ public class Descend_EX : CharaBaseState
         if (machine.player.isBoosting) machine.SwitchState(machine.boost);
         if (Input.GetKeyDown(KeyCode.DownArrow)) machine.SwitchState(machine.dive);
         machine.transform.Translate(machine.player.face * (machine.player.speed * Time.deltaTime + machine.player.accel),0f,0f);
+        
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && machine.player.face == 1f) machine.ReverseFace();
+        if (Input.GetKeyDown(KeyCode.RightArrow) && machine.player.face == -1f) machine.ReverseFace();
     }
 
     public override void ExitState(CharaStateManager machine)
@@ -26,5 +29,14 @@ public class Descend_EX : CharaBaseState
     {
         
     }
-    
+
+    public override void OnEnable(CharaStateManager machine)
+    {
+        
+    }
+
+    public override void OnDisable(CharaStateManager machine)
+    {
+        
+    }
 }

@@ -5,25 +5,41 @@ using UnityEngine;
 public class LenaKick_EX : CharaBaseState
 {
     private float secs;
+    private float time;
+    private bool activated = true;
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("LenaKick");
        var aniEnd = machine.player.anima.GetCurrentAnimatorStateInfo(0);
        secs = aniEnd.length;
-
+       machine.player.isAttacking = true;
+       activated = true;
+       time = 0.2f;
     }
 
     public override void UpdateState(CharaStateManager machine)
     {
         Chronological(machine);
+        
+        if (activated) ParticleTimer(machine);
     }
 
     public override void ExitState(CharaStateManager machine)
     {
-        
+        machine.player.isAttacking = false;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
+    {
+        
+    }
+
+    public override void OnEnable(CharaStateManager machine)
+    {
+        
+    }
+
+    public override void OnDisable(CharaStateManager machine)
     {
         
     }
@@ -51,5 +67,19 @@ public class LenaKick_EX : CharaBaseState
             }
             machine.SwitchState(machine._forwards);
         }
+    }
+
+    private void ParticleTimer(CharaStateManager machine)
+    {
+        if (time > 0)
+        {
+            time -= Time.deltaTime;
+        }
+        else
+        {
+            MonoBehaviour.Instantiate(machine.player.KickFX, machine.player.transform);
+            activated = false;
+        }
+        
     }
 }

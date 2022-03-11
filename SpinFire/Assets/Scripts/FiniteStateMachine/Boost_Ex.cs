@@ -19,7 +19,7 @@ public class Boost_Ex : CharaBaseState
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow)) machine.SwitchState(machine.pierceKick);
         if (Input.GetKeyDown(KeyCode.DownArrow)) machine.SwitchState(machine.player.isGrounded?(CharaBaseState) machine.dash:machine.aerialSweep);
         if (Input.GetKeyDown(KeyCode.UpArrow) && machine.player.isGrounded) machine.SwitchState(machine.upKick);
-        if (machine.player.isWallSliding) machine.SwitchState(machine.wallSlide);
+        if (machine.player.wallColl) machine.SwitchState(machine.wallSlide);
         
         machine.transform.Translate(machine.player.face * (machine.player.speed * Time.deltaTime + machine.player.accel),0f,0f);
         machine.player.RegulateSpeed();
@@ -31,6 +31,16 @@ public class Boost_Ex : CharaBaseState
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
+    {
+        
+    }
+
+    public override void OnEnable(CharaStateManager machine)
+    {
+        
+    }
+
+    public override void OnDisable(CharaStateManager machine)
     {
         
     }

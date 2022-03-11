@@ -22,9 +22,11 @@ public class Player : MonoBehaviour
     public string currentState;
     public float increment = 0.01f;
     public float accel;
-    public bool groundColDir;
+    public bool wallColl;
     public float speedGear; //changes between running animations depending on speed
-    
+    public GameObject KickFX;
+    public GameObject Up_Impulse;
+
 
     public enum AniStates {forwards, Jump, Suspend, Descend, Land, Boost, UpKick, WallSlide, LenaKick,PierceKick,FromAbove,Dive, AerialSweep,Dash,Lenalee_stand}
 
@@ -34,6 +36,8 @@ public class Player : MonoBehaviour
         anima = GetComponent<Animator>();
         maxSpeed = 3f;
         boxCollider2D = GetComponent<BoxCollider2D>();
+        KickFX = Resources.Load("KickFX") as GameObject;
+        Up_Impulse = Resources.Load("Upwards_Impulse") as GameObject;
     }
 
     private void Start()

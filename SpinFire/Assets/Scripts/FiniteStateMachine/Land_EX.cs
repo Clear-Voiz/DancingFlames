@@ -20,6 +20,33 @@ public class Land_EX : CharaBaseState
     {
         Chronological(machine);
         if (Input.GetKeyDown(KeyCode.UpArrow)) machine.SwitchState(machine.jump);
+        if (Input.GetKeyDown(KeyCode.RightArrow) && machine.player.face == -1f)
+        {
+            machine.ReverseFace();
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow) && machine.player.face == 1f)
+        {
+            machine.SwitchState(machine.lenakick);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && machine.player.face == 1f)
+        {
+            machine.ReverseFace();
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow) && machine.player.face == -1f)
+        {
+            machine.SwitchState(machine.lenakick);
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (machine.player.face == -1f) machine.SwitchState(machine.lenakick);
+            else
+            {
+                machine.ReverseFace();
+            }
+        }
     }
 
     public override void ExitState(CharaStateManager machine)
@@ -30,6 +57,16 @@ public class Land_EX : CharaBaseState
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
         
+    }
+
+    public override void OnEnable(CharaStateManager machine)
+    {
+        
+    }
+
+    public override void OnDisable(CharaStateManager machine)
+    {
+       
     }
 
     void Chronological(CharaStateManager machine)

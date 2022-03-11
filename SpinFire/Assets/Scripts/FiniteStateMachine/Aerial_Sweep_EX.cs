@@ -11,6 +11,8 @@ public class Aerial_Sweep_EX : CharaBaseState
         machine.player.anima.Play("AerialSweep");
         var aniEnd = machine.player.anima.GetCurrentAnimatorStateInfo(0);
         secs = aniEnd.length * 3f;
+
+        machine.player.isAttacking = true;
     }
 
     public override void UpdateState(CharaStateManager machine)
@@ -21,10 +23,20 @@ public class Aerial_Sweep_EX : CharaBaseState
 
     public override void ExitState(CharaStateManager machine)
     {
-        
+        machine.player.isAttacking = false;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
+    {
+        
+    }
+
+    public override void OnEnable(CharaStateManager machine)
+    {
+        
+    }
+
+    public override void OnDisable(CharaStateManager machine)
     {
         
     }

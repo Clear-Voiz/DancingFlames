@@ -10,6 +10,8 @@ public class PierceKick_EX : CharaBaseState
         machine.player.anima.Play("PierceKick");
         var time = machine.player.anima.GetCurrentAnimatorStateInfo(0);
         secs = time.length * 4f;
+        
+        machine.player.isAttacking = true;
     }
 
     public override void UpdateState(CharaStateManager machine)
@@ -20,12 +22,22 @@ public class PierceKick_EX : CharaBaseState
 
     public override void ExitState(CharaStateManager machine)
     {
-        
+        machine.player.isAttacking = false;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
         
+    }
+
+    public override void OnEnable(CharaStateManager machine)
+    {
+        
+    }
+
+    public override void OnDisable(CharaStateManager machine)
+    {
+       
     }
 
     void Chronological(CharaStateManager machine)

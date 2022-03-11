@@ -799,6 +799,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ab845273901894880d42801e55a085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightActions: {fileID: 0}
+  leftActions: {fileID: 0}
   player: {fileID: 0}
   BB: {fileID: 0}
 --- !u!95 &95684476
@@ -963,8 +965,10 @@ MonoBehaviour:
   currentState: 
   increment: 0.01
   accel: 0
-  groundColDir: 0
+  wallColl: 0
   speedGear: 0
+  KickFX: {fileID: 0}
+  Up_Impulse: {fileID: 0}
 --- !u!1 &173036143
 GameObject:
   m_ObjectHideFlags: 0
@@ -3993,7 +3997,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1354357719
 PrefabInstance:
@@ -5109,6 +5113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1885342669}
   - component: {fileID: 1885342668}
+  - component: {fileID: 1885342670}
   m_Layer: 0
   m_Name: GAME
   m_TagString: Untagged
@@ -5143,8 +5148,20 @@ Transform:
   - {fileID: 379921704}
   - {fileID: 1880021088}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1885342670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885342667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d478bcdf07280642827ac0a5f260e92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1935188626
 GameObject:
   m_ObjectHideFlags: 0
@@ -5227,7 +5244,7 @@ Transform:
   m_Children:
   - {fileID: 1777206060}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1935188629
 Animator:
@@ -5697,7 +5714,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2095688335
 GameObject:
@@ -5997,7 +6014,7 @@ PrefabInstance:
     - target: {fileID: 3933528357713646108, guid: 6a7798aa56baf4e4ab291e1295089768,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3933528357713646108, guid: 6a7798aa56baf4e4ab291e1295089768,
         type: 3}

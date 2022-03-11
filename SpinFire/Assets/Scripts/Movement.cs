@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour
    private float accel = 0f;
    private bool groundColDir;
    private Player _player;
-   private GameObject Up_Impulse;
+   public GameObject Up_Impulse;
 
    private void Awake()
    {
