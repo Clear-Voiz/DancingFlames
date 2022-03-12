@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Forwards : CharaBaseState
 {
-    public Activate ring;
-    bool pressed = true;
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("forwards");
@@ -14,6 +12,7 @@ public class Forwards : CharaBaseState
         machine.player.increment = 0.1f;
         machine.rightActions.OnPressedRight += ForwardsRightActs;
         machine.leftActions.OnPressedLeft += ForwardsLeftActs;
+        machine.upActions.OnPressedUp += Jump;
     }
 
     public override void UpdateState(CharaStateManager machine)
@@ -55,6 +54,7 @@ public class Forwards : CharaBaseState
     {
         machine.rightActions.OnPressedRight -= ForwardsRightActs;
         machine.leftActions.OnPressedLeft -= ForwardsLeftActs;
+        machine.upActions.OnPressedUp -= Jump;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
@@ -93,29 +93,18 @@ public class Forwards : CharaBaseState
     
     public void ForwardsLeftActs(CharaStateManager machine)
     {
-        //if (pressed)
-
+        if (machine.player.face == -1f)
         {
-            pressed = false;
-            ring.alarm[0] = ring.Alarm(0.02f, rePressed);
-            if (machine.player.face == -1f)
-            {
-                machine.SwitchState(machine.lenakick);
-                Debug.Log("kicked");
-            }
-            else
-            {
-             machine.ReverseFace();
-             Debug.Log("reversed");
-            }
-        
+            machine.SwitchState(machine.lenakick);
         }
-        
-        
+        else
+        {
+            machine.ReverseFace();
+        }
     }
 
-    public void rePressed()
+    private void Jump(CharaStateManager machine)
     {
-        Debug.Log("it works");
+        machine.SwitchState(machine.jump);
     }
 }

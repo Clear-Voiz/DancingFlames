@@ -24,6 +24,8 @@ public class CharaStateManager : MonoBehaviour
     //Buttons
     public RightActions rightActions;
     public LeftActions leftActions;
+    public UpActions upActions;
+    public DownActions downActions;
 
     public Player player;
     public BoostBar BB;
@@ -34,6 +36,8 @@ public class CharaStateManager : MonoBehaviour
         BB = FindObjectOfType<BoostBar>();
         rightActions = FindObjectOfType<RightActions>();
         leftActions = FindObjectOfType<LeftActions>();
+        upActions = FindObjectOfType<UpActions>();
+        downActions = FindObjectOfType<DownActions>();
     }
 
     void Start()

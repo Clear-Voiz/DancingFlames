@@ -9,6 +9,9 @@ public class Jump_EX : CharaBaseState
         machine.player.anima.Play("Jump");
         machine.player.isGrounded = false;
         machine.player._rig.AddForce(Vector2.up * (4f), ForceMode2D.Impulse);
+        machine.rightActions.OnPressedRight += JumpRightActs;
+        machine.leftActions.OnPressedLeft += JumpLeftActs;
+        machine.downActions.OnPressedDown += Dive;
     }
 
     public override void UpdateState(CharaStateManager machine)
@@ -29,7 +32,9 @@ public class Jump_EX : CharaBaseState
 
     public override void ExitState(CharaStateManager machine)
     {
-        
+        machine.rightActions.OnPressedRight -= JumpRightActs;
+        machine.leftActions.OnPressedLeft -= JumpLeftActs;
+        machine.downActions.OnPressedDown -= Dive;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
@@ -50,6 +55,36 @@ public class Jump_EX : CharaBaseState
 
     public override void OnDisable(CharaStateManager machine)
     {
-        
+        machine.rightActions.OnPressedRight -= JumpRightActs;
+        machine.leftActions.OnPressedLeft -= JumpLeftActs;
+        machine.downActions.OnPressedDown -= Dive;
+    }
+    
+    private void JumpRightActs(CharaStateManager machine)
+    {
+        if (machine.player.face == 1f)
+        {
+            //machine.SwitchState(machine.lenakick);
+        }
+        else
+        {
+            machine.ReverseFace();
+        }
+    }
+    
+    private void JumpLeftActs(CharaStateManager machine)
+    {
+        if (machine.player.face == -1f)
+        {
+            // machine.SwitchState(machine.lenakick);
+        }
+        else
+        {
+            machine.ReverseFace();
+        }
+    }
+    private void Dive(CharaStateManager machine)
+    {
+        machine.SwitchState(machine.dive);
     }
 }

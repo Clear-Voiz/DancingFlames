@@ -7,6 +7,9 @@ public class Suspended_EX : CharaBaseState
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("Suspend");
+        machine.leftActions.OnPressedLeft += SuspendedLeftActs;
+        machine.rightActions.OnPressedRight += SuspendedRightActs;
+        machine.downActions.OnPressedDown += Dive;
     }
 
     public override void UpdateState(CharaStateManager machine)
@@ -23,12 +26,20 @@ public class Suspended_EX : CharaBaseState
 
     public override void ExitState(CharaStateManager machine)
     {
-        
+        machine.leftActions.OnPressedLeft -= SuspendedLeftActs;
+        machine.rightActions.OnPressedRight -= SuspendedRightActs;
+        machine.downActions.OnPressedDown -= Dive;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
-        
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            if (other.GetContact(0).normal == Vector2.right || other.GetContact(0).normal == Vector2.left)
+            {
+                machine.ReverseFace();
+            }
+        }  
     }
 
     public override void OnEnable(CharaStateManager machine)
@@ -38,6 +49,37 @@ public class Suspended_EX : CharaBaseState
 
     public override void OnDisable(CharaStateManager machine)
     {
-        
+        machine.leftActions.OnPressedLeft -= SuspendedLeftActs;
+        machine.rightActions.OnPressedRight -= SuspendedRightActs;
+        machine.downActions.OnPressedDown -= Dive;
+    }
+    
+    public void SuspendedRightActs(CharaStateManager machine)
+    {
+        if (machine.player.face == 1f)
+        {
+            //machine.SwitchState(machine.lenakick);
+        }
+        else
+        {
+            machine.ReverseFace();
+        }
+    }
+    
+    public void SuspendedLeftActs(CharaStateManager machine)
+    {
+        if (machine.player.face == -1f)
+        {
+           // machine.SwitchState(machine.lenakick);
+        }
+        else
+        {
+            machine.ReverseFace();
+        }
+    }
+
+    private void Dive(CharaStateManager machine)
+    {
+        machine.SwitchState(machine.dive);
     }
 }

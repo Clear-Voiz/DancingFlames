@@ -11,6 +11,11 @@ public class Boost_Ex : CharaBaseState
         machine.player._rig.gravityScale = 0;
         machine.player.maxSpeed = 6f;
         machine.player.increment = 0.1f;
+        machine.upActions.OnPressedUp += LenaKick;
+        machine.downActions.OnPressedDown += DownActs;
+        machine.rightActions.OnPressedRight += PierceKick_EX;
+        machine.leftActions.OnPressedLeft += PierceKick_EX;
+
     }
 
     public override void UpdateState(CharaStateManager machine)
@@ -28,6 +33,10 @@ public class Boost_Ex : CharaBaseState
     public override void ExitState(CharaStateManager machine)
     {
         machine.player._rig.gravityScale = 1;
+        machine.upActions.OnPressedUp -= LenaKick;
+        machine.downActions.OnPressedDown -= DownActs;
+        machine.rightActions.OnPressedRight -= PierceKick_EX;
+        machine.leftActions.OnPressedLeft -= PierceKick_EX;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
@@ -42,6 +51,31 @@ public class Boost_Ex : CharaBaseState
 
     public override void OnDisable(CharaStateManager machine)
     {
-        
+        machine.upActions.OnPressedUp -= LenaKick;
+        machine.downActions.OnPressedDown -= DownActs;
+        machine.rightActions.OnPressedRight -= PierceKick_EX;
+        machine.leftActions.OnPressedLeft -= PierceKick_EX;
+    }
+
+    private void LenaKick(CharaStateManager machine)
+    {
+        if (machine.player.isGrounded) machine.SwitchState(machine.upKick);
+    }
+    
+    private void DownActs(CharaStateManager machine)
+    {
+        if (machine.player.isGrounded)
+        {
+            machine.SwitchState(machine.dash);
+        }
+        else
+        {
+            machine.SwitchState(machine.aerialSweep);
+        }
+    }
+
+    private void PierceKick_EX(CharaStateManager machine)
+    {
+        machine.SwitchState(machine.pierceKick);
     }
 }

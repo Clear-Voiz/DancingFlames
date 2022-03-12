@@ -7,15 +7,19 @@ using UnityEngine.EventSystems;
 public class DownActions : MonoBehaviour,IPointerDownHandler
 {
     private Player _player;
+    private CharaStateManager CSM;
+    public event Action<CharaStateManager> OnPressedDown; 
 
     private void Awake()
     {
         _player = FindObjectOfType<Player>();
+        CSM = FindObjectOfType<CharaStateManager>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (!_player.isBoosting)
+        OnPressedDown?.Invoke(CSM);
+        /*if (!_player.isBoosting)
         {
             if (!_player.isGrounded)
             {
@@ -40,6 +44,6 @@ public class DownActions : MonoBehaviour,IPointerDownHandler
                 _player.ChangeAniState(Player.AniStates.Dash);
             }
 
-        }
+        }*/
     }
 }
