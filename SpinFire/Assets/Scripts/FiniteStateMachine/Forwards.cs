@@ -13,13 +13,22 @@ public class Forwards : CharaBaseState
         machine.rightActions.OnPressedRight += ForwardsRightActs;
         machine.leftActions.OnPressedLeft += ForwardsLeftActs;
         machine.upActions.OnPressedUp += Jump;
+        machine.downActions.OnPressedDown += Stop;
+    }
+
+    public override void FixedUpdateState(CharaStateManager machine)
+    {
+        machine.player._rig.velocity = new Vector2((machine.player.speed + machine.player.accel) * machine.player.face, machine.player._rig.velocity.y);
     }
 
     public override void UpdateState(CharaStateManager machine)
     {
-        machine.transform.Translate(machine.player.face * (machine.player.speed * Time.deltaTime + machine.player.accel),0f,0f);
-        
+        //machine.transform.Translate(machine.player.face * (machine.player.speed * Time.deltaTime + machine.player.accel),0f,0f);
+        if (machine.player._rig.velocity.y < 0f) machine.SwitchState(machine.suspended);
+
         machine.player.RegulateSpeed();
+        
+        if (machine.player.wallColl) machine.SwitchState(machine.stand);
 
         /*if (machine.player.speed >= machine.player.speedGear)
             machine.SwitchState(machine.boost);*/
@@ -55,31 +64,27 @@ public class Forwards : CharaBaseState
         machine.rightActions.OnPressedRight -= ForwardsRightActs;
         machine.leftActions.OnPressedLeft -= ForwardsLeftActs;
         machine.upActions.OnPressedUp -= Jump;
+        machine.downActions.OnPressedDown -= Stop;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (machine.player.wallColl) machine.SwitchState(machine.stand);
+
+            if (other.collider.CompareTag("Damager"))
         {
-            if (other.GetContact(0).normal == Vector2.right || other.GetContact(0).normal == Vector2.left)
-            {
-                machine.ReverseFace();
-            }
-        }  
+            machine.SwitchState(machine.collapse);
+        }
     }
 
-    public override void OnEnable(CharaStateManager machine)
-    {
-       
-    }
-
-    public override void OnDisable(CharaStateManager machine)
+    public override void OnDisableState(CharaStateManager machine)
     {
         machine.rightActions.OnPressedRight -= ForwardsRightActs;
         machine.leftActions.OnPressedLeft -= ForwardsLeftActs;
+        machine.downActions.OnPressedDown -= Stop;
     }
 
-    public void ForwardsRightActs(CharaStateManager machine)
+    private void ForwardsRightActs(CharaStateManager machine)
     {
         if (machine.player.face == 1f)
         {
@@ -91,7 +96,7 @@ public class Forwards : CharaBaseState
         }
     }
     
-    public void ForwardsLeftActs(CharaStateManager machine)
+    private void ForwardsLeftActs(CharaStateManager machine)
     {
         if (machine.player.face == -1f)
         {
@@ -106,5 +111,10 @@ public class Forwards : CharaBaseState
     private void Jump(CharaStateManager machine)
     {
         machine.SwitchState(machine.jump);
+    }
+    
+    private void Stop(CharaStateManager machine)
+    {
+        machine.SwitchState(machine.stand);
     }
 }

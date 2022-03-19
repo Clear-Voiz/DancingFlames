@@ -7,11 +7,23 @@ public class Jump_EX : CharaBaseState
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("Jump");
-        machine.player.isGrounded = false;
         machine.player._rig.AddForce(Vector2.up * (4f), ForceMode2D.Impulse);
+        machine.player.isGrounded = false;
         machine.rightActions.OnPressedRight += JumpRightActs;
         machine.leftActions.OnPressedLeft += JumpLeftActs;
         machine.downActions.OnPressedDown += Dive;
+    }
+
+    public override void FixedUpdateState(CharaStateManager machine)
+    {
+        if (!machine.player.wallColl)
+        {
+            machine.player._rig.velocity = new Vector2((machine.player.speed + machine.player.accel) * machine.player.face, machine.player._rig.velocity.y);
+        }
+        else
+        {
+            machine.player._rig.velocity = new Vector2(0f, machine.player._rig.velocity.y);
+        }
     }
 
     public override void UpdateState(CharaStateManager machine)
@@ -24,9 +36,6 @@ public class Jump_EX : CharaBaseState
         
         if (Input.GetKeyDown(KeyCode.LeftArrow) && machine.player.face == 1f) machine.ReverseFace();
         if (Input.GetKeyDown(KeyCode.RightArrow) && machine.player.face == -1f) machine.ReverseFace();
-        
-        machine.transform.Translate(machine.player.face * (machine.player.speed * Time.deltaTime + machine.player.accel),0f,0f);
-        
 
     }
 
@@ -39,21 +48,21 @@ public class Jump_EX : CharaBaseState
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.collider.CompareTag("Ground"))
         {
             if (other.GetContact(0).normal == Vector2.right || other.GetContact(0).normal == Vector2.left)
             {
                 machine.ReverseFace();
             }
-        } 
-    }
+        }
 
-    public override void OnEnable(CharaStateManager machine)
-    {
-        
+        if (other.collider.CompareTag("Damager"))
+        {
+            machine.SwitchState(machine.fall);
+        }
     }
-
-    public override void OnDisable(CharaStateManager machine)
+    
+    public override void OnDisableState(CharaStateManager machine)
     {
         machine.rightActions.OnPressedRight -= JumpRightActs;
         machine.leftActions.OnPressedLeft -= JumpLeftActs;
@@ -64,7 +73,7 @@ public class Jump_EX : CharaBaseState
     {
         if (machine.player.face == 1f)
         {
-            //machine.SwitchState(machine.lenakick);
+            machine.SwitchState(machine.airKick);
         }
         else
         {
@@ -76,7 +85,7 @@ public class Jump_EX : CharaBaseState
     {
         if (machine.player.face == -1f)
         {
-            // machine.SwitchState(machine.lenakick);
+            machine.SwitchState(machine.airKick);
         }
         else
         {

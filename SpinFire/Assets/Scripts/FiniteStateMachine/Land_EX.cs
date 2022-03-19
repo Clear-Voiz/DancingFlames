@@ -16,6 +16,11 @@ public class Land_EX : CharaBaseState
         if (machine.player.speed > machine.player.maxSpeed) machine.player.speed = machine.player.maxSpeed;
     }
 
+    public override void FixedUpdateState(CharaStateManager machine)
+    {
+        
+    }
+
     public override void UpdateState(CharaStateManager machine)
     {
         Chronological(machine);
@@ -56,15 +61,13 @@ public class Land_EX : CharaBaseState
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
-        
+        if (other.collider.CompareTag("Damager"))
+        {
+            machine.SwitchState(machine.collapse);
+        }
     }
 
-    public override void OnEnable(CharaStateManager machine)
-    {
-        
-    }
-
-    public override void OnDisable(CharaStateManager machine)
+    public override void OnDisableState(CharaStateManager machine)
     {
        
     }
@@ -77,7 +80,14 @@ public class Land_EX : CharaBaseState
         }
         else
         {
-            machine.SwitchState(machine._forwards);
+            if (!machine.player.wallColl)
+            {
+                machine.SwitchState(machine._forwards);
+            }
+            else
+            {
+                machine.SwitchState(machine.stand);
+            }
         }
     }
 }

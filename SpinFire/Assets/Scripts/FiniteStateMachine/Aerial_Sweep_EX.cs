@@ -15,6 +15,14 @@ public class Aerial_Sweep_EX : CharaBaseState
         machine.player.isAttacking = true;
     }
 
+    public override void FixedUpdateState(CharaStateManager machine)
+    {
+        if (machine.player.wallColl)
+        {
+            machine.player._rig.velocity = new Vector2(0f, machine.player._rig.velocity.y);
+        }
+    }
+
     public override void UpdateState(CharaStateManager machine)
     {
        if (machine.player.isGrounded) machine.SwitchState(machine.land);
@@ -28,15 +36,13 @@ public class Aerial_Sweep_EX : CharaBaseState
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
-        
+        if (other.collider.CompareTag("Damager"))
+        {
+            machine.SwitchState(machine.fall);
+        }
     }
 
-    public override void OnEnable(CharaStateManager machine)
-    {
-        
-    }
-
-    public override void OnDisable(CharaStateManager machine)
+    public override void OnDisableState(CharaStateManager machine)
     {
         
     }

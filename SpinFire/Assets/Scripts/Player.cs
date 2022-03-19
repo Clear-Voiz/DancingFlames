@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float face;
     public bool isGrounded;
     public bool isAttacking;
+    public bool wait;
     public float fuel;
     public float maxFuel;
     public Vector3 scaleFact;
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     public float maxSpeed;
     public bool isBoosting;
     public bool isWallSliding;
+    public bool invenci;
     public string currentState;
     public float increment = 0.01f;
     public float accel;

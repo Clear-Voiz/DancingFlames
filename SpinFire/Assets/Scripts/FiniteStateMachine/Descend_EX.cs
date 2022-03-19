@@ -12,13 +12,25 @@ public class Descend_EX : CharaBaseState
         machine.downActions.OnPressedDown += Dive;
     }
 
+    public override void FixedUpdateState(CharaStateManager machine)
+    {
+        if (!machine.player.wallColl)
+        {
+            machine.player._rig.velocity = new Vector2((machine.player.speed + machine.player.accel) * machine.player.face,
+                    machine.player._rig.velocity.y);
+        }
+        else
+        {
+            machine.player._rig.velocity = new Vector2(0f, machine.player._rig.velocity.y);
+        }
+    }
+
     public override void UpdateState(CharaStateManager machine)
     {
         if (machine.player.isGrounded) machine.SwitchState(machine.land);
         if (machine.player.isBoosting) machine.SwitchState(machine.boost);
         if (Input.GetKeyDown(KeyCode.DownArrow)) machine.SwitchState(machine.dive);
-        machine.transform.Translate(machine.player.face * (machine.player.speed * Time.deltaTime + machine.player.accel),0f,0f);
-        
+
         if (Input.GetKeyDown(KeyCode.LeftArrow) && machine.player.face == 1f) machine.ReverseFace();
         if (Input.GetKeyDown(KeyCode.RightArrow) && machine.player.face == -1f) machine.ReverseFace();
     }
@@ -32,21 +44,21 @@ public class Descend_EX : CharaBaseState
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+       /* if (other.collider.CompareTag("Ground"))
         {
             if (other.GetContact(0).normal == Vector2.right || other.GetContact(0).normal == Vector2.left)
             {
                 machine.ReverseFace();
             }
-        } 
+        }
+        */
+        if (other.collider.CompareTag("Damager"))
+        {
+            machine.SwitchState(machine.fall);
+        }
     }
 
-    public override void OnEnable(CharaStateManager machine)
-    {
-        
-    }
-
-    public override void OnDisable(CharaStateManager machine)
+    public override void OnDisableState(CharaStateManager machine)
     {
         machine.rightActions.OnPressedRight -= DescendRightActs;
         machine.leftActions.OnPressedLeft -= DescendLeftActs;
@@ -57,7 +69,7 @@ public class Descend_EX : CharaBaseState
     {
         if (machine.player.face == 1f)
         {
-            //machine.SwitchState(machine.lenakick);
+            machine.SwitchState(machine.airKick);
         }
         else
         {
@@ -69,7 +81,7 @@ public class Descend_EX : CharaBaseState
     {
         if (machine.player.face == -1f)
         {
-            // machine.SwitchState(machine.lenakick);
+            machine.SwitchState(machine.airKick);
         }
         else
         {

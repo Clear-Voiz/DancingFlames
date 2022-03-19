@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TraffLight : MonoBehaviour
 {
-    private Player _player;
+    private CharaStateManager _machine;
     public int state;
     private SpriteRenderer spRe;
     private float secs = 1f;
@@ -16,7 +16,7 @@ public class TraffLight : MonoBehaviour
 
     private void Awake()
     {
-        _player = FindObjectOfType<Player>();
+        _machine = FindObjectOfType<CharaStateManager>();
         anima = GetComponentInParent<Animator>();
         spRe = GetComponent<SpriteRenderer>();
     }
@@ -40,15 +40,21 @@ public class TraffLight : MonoBehaviour
         {
             if (state == 1)
             {
-                _player.speed = 10f;
+                _machine.player.speed = 10f;
             }
             else if (state == 2)
             {
-                _player.ChangeAniState(Player.AniStates.Lenalee_stand);
-                _player.speed = 0;
-                Rigidbody2D _rig = _player.GetComponent<Rigidbody2D>();
-                _rig.velocity = Vector2.zero;
-                Debug.Log(_player.currentState);
+                _machine.player.wait = true;
+                Debug.Log(_machine.player.wait);
+                if (_machine.player.isGrounded && _machine.currentState != _machine.stand)
+                {
+                    _machine.player._rig.velocity = Vector2.right * 2.2f * _machine.player.face;
+                    _machine.SwitchState(_machine.stand);
+                }
+                else if (!_machine.player.isGrounded && _machine.currentState != _machine.dive)
+                {
+                    _machine.SwitchState(_machine.dive);
+                }
             }
         }
     }
@@ -81,6 +87,24 @@ public class TraffLight : MonoBehaviour
                 anima.Play("Green");
                 secs = 3f;
                 spRe.color = new Color(0f, 1f, 0.3f, 0.67f);
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (state == 2)
+            {
+                _machine.player.wait = false;
+                Debug.Log(_machine.player.wait);
+            }
+            if (state == 0 && _machine.currentState == _machine.stand)
+            {
+                _machine.SwitchState(_machine._forwards);
+                _machine.player._rig.velocity = Vector2.right * 10f * _machine.player.face;
+                Debug.Log("shouldwork");
             }
         }
     }

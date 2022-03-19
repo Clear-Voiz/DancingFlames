@@ -11,6 +11,11 @@ public class Dive_EX : CharaBaseState
         machine.player._rig.AddForce(Vector2.down * 6f, ForceMode2D.Impulse);
     }
 
+    public override void FixedUpdateState(CharaStateManager machine)
+    {
+        
+    }
+
     public override void UpdateState(CharaStateManager machine)
     {
         if (machine.player.isGrounded) machine.SwitchState(machine.land);
@@ -24,15 +29,13 @@ public class Dive_EX : CharaBaseState
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
-        
+        if (other.collider.CompareTag("Damager"))
+        {
+            machine.SwitchState(machine.fall);
+        }
     }
 
-    public override void OnEnable(CharaStateManager machine)
-    {
-        
-    }
-
-    public override void OnDisable(CharaStateManager machine)
+    public override void OnDisableState(CharaStateManager machine)
     {
         
     }

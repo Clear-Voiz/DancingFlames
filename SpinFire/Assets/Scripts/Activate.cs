@@ -10,10 +10,10 @@ public class Activate
     public IEnumerator[] alarm;
 
        
-        public IEnumerator Alarm(float time, Action act)
+        public IEnumerator Alarm(float time, Action<CharaStateManager> act, CharaStateManager machine)
         {
             yield return new WaitForSeconds(time);
-            act();
+            act(machine);
         }
 
         public Activate(int alarms)

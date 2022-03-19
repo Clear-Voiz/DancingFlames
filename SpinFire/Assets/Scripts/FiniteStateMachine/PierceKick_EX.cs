@@ -14,9 +14,20 @@ public class PierceKick_EX : CharaBaseState
         machine.player.isAttacking = true;
     }
 
+    public override void FixedUpdateState(CharaStateManager machine)
+    {
+        if (!machine.player.wallColl)
+        {
+            machine.player._rig.velocity = new Vector2((machine.player.speed + machine.player.accel) * machine.player.face, machine.player._rig.velocity.y);
+        }
+        else
+        {
+            machine.player._rig.velocity = new Vector2(0f, machine.player._rig.velocity.y);
+        }
+    }
+
     public override void UpdateState(CharaStateManager machine)
     {
-        machine.transform.Translate(machine.player.face * (machine.player.speed * Time.deltaTime + machine.player.accel),0f,0f);
         Chronological(machine);
     }
 
@@ -27,15 +38,21 @@ public class PierceKick_EX : CharaBaseState
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
-        
+        if (other.collider.CompareTag("Damager"))
+        {
+            if (machine.player.isGrounded)
+            {
+                machine.SwitchState(machine.collapse);
+            }
+            else
+            {
+                machine.SwitchState(machine.fall);
+            }
+           
+        }
     }
 
-    public override void OnEnable(CharaStateManager machine)
-    {
-        
-    }
-
-    public override void OnDisable(CharaStateManager machine)
+    public override void OnDisableState(CharaStateManager machine)
     {
        
     }
@@ -48,7 +65,28 @@ public class PierceKick_EX : CharaBaseState
         }
         else
         {
-            machine.SwitchState(machine.player.isGrounded?(CharaBaseState) machine._forwards:machine.suspended);
+            if (machine.player.isGrounded)
+            {
+                if (!machine.player.wallColl)
+                {
+                    machine.SwitchState(machine._forwards);
+                }
+                else
+                {
+                    if (machine.player.isBoosting)
+                    {
+                        machine.SwitchState(machine.wallSlide);
+                    }
+                    else
+                    {
+                        machine.SwitchState(machine.stand);
+                    }
+                }
+            }
+            else
+            {
+                machine.SwitchState(machine.suspended);
+            }
             machine.player.maxSpeed = 3;
             machine.player.speed = machine.player.maxSpeed;
         }

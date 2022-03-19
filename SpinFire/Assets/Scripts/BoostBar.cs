@@ -19,7 +19,10 @@ public class BoostBar : MonoBehaviour
 
     private void Update()
     {
-        Boost();
+        if (!_player.wait)
+        {
+            Boost();
+        }
         Replenish();
         _bar.fillAmount = _player.fuel / _player.maxFuel;
     }
