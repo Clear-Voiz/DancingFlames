@@ -159,12 +159,12 @@ public class CharaStateManager : MonoBehaviour
     private void WallColl()
     {
         var extraHeight = 0.2f;
-        RaycastHit2D raycastHit = Physics2D.Raycast(player.boxCollider2D.bounds.center + new Vector3(0f,-player.boxCollider2D.bounds.extents.y), Vector2.right * player.face,
-            player.boxCollider2D.bounds.extents.x + extraHeight, 1 << 8);
-        
+        RaycastHit2D hit = Physics2D.BoxCast(player.boxCollider2D.bounds.center, player.boxCollider2D.size, 0f,
+            Vector2.right * player.face, extraHeight, 1 << 8);
+
         Color rayColor;
 
-        if (raycastHit.collider != null)
+        if (hit.collider != null)
         {
             rayColor = Color.green;
         }
@@ -173,10 +173,12 @@ public class CharaStateManager : MonoBehaviour
             rayColor = Color.red;
         }
         
-        Debug.DrawRay(player.boxCollider2D.bounds.center + new Vector3(0f,-player.boxCollider2D.bounds.extents.y),Vector2.right*player.face*(player.boxCollider2D.bounds.extents.x+extraHeight),rayColor);
+        Debug.DrawRay(player.boxCollider2D.bounds.center +new Vector3(0f, player.boxCollider2D.bounds.extents.y),Vector2.right * player.face*(player.boxCollider2D.bounds.extents.x + extraHeight),rayColor);
+        Debug.DrawRay(player.boxCollider2D.bounds.center +new Vector3(0f,-player.boxCollider2D.bounds.extents.y),Vector2.right*player.face*(player.boxCollider2D.bounds.extents.x+extraHeight),rayColor);
+        Debug.DrawRay(player.boxCollider2D.bounds.center +new Vector3(player.face * (player.boxCollider2D.bounds.extents.x + extraHeight),player.boxCollider2D.bounds.extents.y),Vector2.down * player.boxCollider2D.bounds.extents.y * 2f,rayColor);
         //Debug.Log(raycastHit.collider);
         
-        player.wallColl = raycastHit.collider != null;
+        player.wallColl = hit.collider != null;
     }
 
     public void SwitchState(CharaBaseState state)
