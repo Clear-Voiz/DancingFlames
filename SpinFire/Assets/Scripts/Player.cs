@@ -28,7 +28,9 @@ public class Player : MonoBehaviour
     public float speedGear; //changes between running animations depending on speed
     public GameObject KickFX;
     public GameObject Up_Impulse;
-
+    public GameObject AirKickFX;
+    public GameObject PierceFX;
+    public CenterActions centerActions;
 
     public enum AniStates {forwards, Jump, Suspend, Descend, Land, Boost, UpKick, WallSlide, LenaKick,PierceKick,FromAbove,Dive, AerialSweep,Dash,Lenalee_stand}
 
@@ -40,6 +42,9 @@ public class Player : MonoBehaviour
         boxCollider2D = GetComponent<BoxCollider2D>();
         KickFX = Resources.Load("KickFX") as GameObject;
         Up_Impulse = Resources.Load("Upwards_Impulse") as GameObject;
+        AirKickFX = Resources.Load("AirKickFX") as GameObject;
+        PierceFX = Resources.Load("PierceFX") as GameObject;
+        centerActions = FindObjectOfType<CenterActions>();
     }
 
     private void Start()

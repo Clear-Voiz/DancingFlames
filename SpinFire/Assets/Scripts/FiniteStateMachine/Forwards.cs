@@ -14,6 +14,19 @@ public class Forwards : CharaBaseState
         machine.leftActions.OnPressedLeft += ForwardsLeftActs;
         machine.upActions.OnPressedUp += Jump;
         machine.downActions.OnPressedDown += Stop;
+
+        if (machine.player.face == 1)
+        {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[4];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[1];
+        }
+        else
+        {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
+        }
+        machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[2];
+        machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[3];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)
@@ -92,6 +105,8 @@ public class Forwards : CharaBaseState
         }
         else
         {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[4];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[1];
             machine.ReverseFace();
         }
     }
@@ -104,6 +119,8 @@ public class Forwards : CharaBaseState
         }
         else
         {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
             machine.ReverseFace();
         }
     }

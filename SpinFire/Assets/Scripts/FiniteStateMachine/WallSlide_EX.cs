@@ -12,12 +12,17 @@ public class WallSlide_EX : CharaBaseState
         machine.player.isWallSliding = true;
         machine.player._rig.gravityScale = 0;
         MonoBehaviour.Instantiate(machine.player.Up_Impulse, machine.player.transform.position, Quaternion.identity);
+        
+        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[8];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)
     {
         machine.player._rig.velocity = new Vector2(0f, machine.player.speed + machine.player.accel);
-
+        machine.player.RegulateSpeed();
     }
 
     public override void UpdateState(CharaStateManager machine)
@@ -33,7 +38,6 @@ public class WallSlide_EX : CharaBaseState
             else
             {
                 machine.SwitchState(machine.suspended);
-                machine.player.speed = 2f;
             }
         }
         
@@ -46,6 +50,11 @@ public class WallSlide_EX : CharaBaseState
     {
         machine.player.isWallSliding = false;
         machine.player._rig.gravityScale = 1;
+        if (machine.player.wallColl)
+        {
+            machine.player._rig.velocity = Vector2.zero;
+            machine.player.speed = 0.2f;
+        }
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)

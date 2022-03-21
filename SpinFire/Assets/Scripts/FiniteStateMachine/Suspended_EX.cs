@@ -10,6 +10,20 @@ public class Suspended_EX : CharaBaseState
         machine.leftActions.OnPressedLeft += SuspendedLeftActs;
         machine.rightActions.OnPressedRight += SuspendedRightActs;
         machine.downActions.OnPressedDown += Dive;
+        
+        if (machine.player.face == 1)
+        {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[4];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[1];
+        }
+        else
+        {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
+        }
+        
+        machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[2];
+        machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[3];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)
@@ -72,6 +86,8 @@ public class Suspended_EX : CharaBaseState
         }
         else
         {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[4];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[1];
             machine.ReverseFace();
         }
     }
@@ -84,6 +100,8 @@ public class Suspended_EX : CharaBaseState
         }
         else
         {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
             machine.ReverseFace();
         }
     }

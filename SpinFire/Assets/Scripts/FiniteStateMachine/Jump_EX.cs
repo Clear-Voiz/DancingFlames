@@ -12,6 +12,20 @@ public class Jump_EX : CharaBaseState
         machine.rightActions.OnPressedRight += JumpRightActs;
         machine.leftActions.OnPressedLeft += JumpLeftActs;
         machine.downActions.OnPressedDown += Dive;
+        
+        if (machine.player.face == 1)
+        {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[4];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[1];
+        }
+        else
+        {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
+        }
+        
+        machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[2];
+        machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[3];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)
@@ -77,6 +91,8 @@ public class Jump_EX : CharaBaseState
         }
         else
         {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[4];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[1];
             machine.ReverseFace();
         }
     }
@@ -89,6 +105,8 @@ public class Jump_EX : CharaBaseState
         }
         else
         {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
             machine.ReverseFace();
         }
     }

@@ -11,11 +11,34 @@ public class Boost_Ex : CharaBaseState
         machine.player._rig.gravityScale = 0;
         machine.player.maxSpeed = 6f;
         machine.player.increment = 0.1f;
-        machine.upActions.OnPressedUp += LenaKick;
+        machine.upActions.OnPressedUp += UpKick;
         machine.downActions.OnPressedDown += DownActs;
         machine.rightActions.OnPressedRight += PierceKick_EX;
         machine.leftActions.OnPressedLeft += PierceKick_EX;
 
+        if (machine.player.isGrounded)
+        {
+            machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[6];
+            machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[3];
+        }
+        else
+        {
+            machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
+            machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[7];
+        }
+
+        if (machine.player.face == 1)
+        {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[4];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
+        }
+        else
+        {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
+        }
+        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[4];
+        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)
@@ -23,6 +46,17 @@ public class Boost_Ex : CharaBaseState
         if (!machine.player.wallColl)
         {
             machine.player._rig.velocity = new Vector2((machine.player.speed + machine.player.accel) * machine.player.face, machine.player._rig.velocity.y);
+        }
+        
+        if (machine.player.isGrounded)
+        {
+            machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[6];
+            machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[3];
+        }
+        else
+        {
+            machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
+            machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[7];
         }
     }
 
@@ -40,7 +74,7 @@ public class Boost_Ex : CharaBaseState
     public override void ExitState(CharaStateManager machine)
     {
         machine.player._rig.gravityScale = 1;
-        machine.upActions.OnPressedUp -= LenaKick;
+        machine.upActions.OnPressedUp -= UpKick;
         machine.downActions.OnPressedDown -= DownActs;
         machine.rightActions.OnPressedRight -= PierceKick_EX;
         machine.leftActions.OnPressedLeft -= PierceKick_EX;
@@ -58,19 +92,18 @@ public class Boost_Ex : CharaBaseState
             {
                 machine.SwitchState(machine.fall);
             }
-           
         }
     }
 
     public override void OnDisableState(CharaStateManager machine)
     {
-        machine.upActions.OnPressedUp -= LenaKick;
+        machine.upActions.OnPressedUp -= UpKick;
         machine.downActions.OnPressedDown -= DownActs;
         machine.rightActions.OnPressedRight -= PierceKick_EX;
         machine.leftActions.OnPressedLeft -= PierceKick_EX;
     }
 
-    private void LenaKick(CharaStateManager machine)
+    private void UpKick(CharaStateManager machine)
     {
         if (machine.player.isGrounded) machine.SwitchState(machine.upKick);
     }

@@ -10,6 +10,11 @@ public class Dash_EX : CharaBaseState
         machine.player.anima.Play("Dash");
         var aniEnd = machine.player.anima.GetCurrentAnimatorStateInfo(0);
         secs = aniEnd.length*2f;
+        
+        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[8];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)

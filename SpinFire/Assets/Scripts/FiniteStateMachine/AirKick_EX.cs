@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class AirKick_EX : CharaBaseState
 {
+    private GameObject PFX;
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("AirKick");
         var time = machine.player.anima.GetCurrentAnimatorStateInfo(0).length *2f;
         machine.StartCoroutine(machine.ring.alarm[0] = machine.ring.Alarm(time, SwitchState,machine));
         machine.player.isAttacking = true;
+        machine.StartCoroutine(machine.ring.alarm[3] = machine.ring.Alarm(0.2f, FX, machine));
+        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[8];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)
@@ -32,6 +38,11 @@ public class AirKick_EX : CharaBaseState
     public override void ExitState(CharaStateManager machine)
     {
         machine.player.isAttacking = false;
+        machine.StopCoroutine(nameof(FX));
+        if (PFX)
+        {
+            MonoBehaviour.Destroy(PFX);
+        }
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
@@ -57,5 +68,10 @@ public class AirKick_EX : CharaBaseState
         {
             machine.SwitchState(machine.descend);
         }
+    }
+
+    private void FX(CharaStateManager machine)
+    {
+        PFX = MonoBehaviour.Instantiate(machine.player.AirKickFX, machine.player.transform);
     }
 }

@@ -15,6 +15,11 @@ public class LenaKick_EX : CharaBaseState
        machine.player.isAttacking = true;
        activated = true;
        time = 0.2f;
+       
+       machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
+       machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
+       machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
+       machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[8];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)

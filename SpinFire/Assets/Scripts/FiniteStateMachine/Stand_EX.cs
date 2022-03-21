@@ -17,6 +17,11 @@ public class Stand_EX : CharaBaseState
         {
             machine.player._rig.velocity = Vector2.zero;
         }
+
+        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
+        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[1];
+        machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[2];
+        machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[8];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)

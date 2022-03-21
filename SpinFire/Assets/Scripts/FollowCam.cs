@@ -9,7 +9,7 @@ public class FollowCam : MonoBehaviour
     void Start()
     {
         _player = FindObjectOfType<Player>();
-        Spacing = new Vector3(0f, 0.7f, -3f);
+        Spacing = new Vector3(0f, 0.7f, -5f);
     }
 
     // Update is called once per frame

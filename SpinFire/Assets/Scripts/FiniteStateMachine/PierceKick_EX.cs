@@ -5,13 +5,21 @@ using UnityEngine;
 public class PierceKick_EX : CharaBaseState
 {
     private float secs;
+    private GameObject PFX;
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("PierceKick");
         var time = machine.player.anima.GetCurrentAnimatorStateInfo(0);
         secs = time.length * 4f;
         
+        machine.player._rig.gravityScale = 0;
         machine.player.isAttacking = true;
+        machine.StartCoroutine(machine.ring.alarm[4] = machine.ring.Alarm(0.2f, FX, machine));
+        
+        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[8];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)
@@ -33,7 +41,9 @@ public class PierceKick_EX : CharaBaseState
 
     public override void ExitState(CharaStateManager machine)
     {
+        machine.player._rig.gravityScale = 1;
         machine.player.isAttacking = false;
+        MonoBehaviour.Destroy(PFX);
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
@@ -90,5 +100,10 @@ public class PierceKick_EX : CharaBaseState
             machine.player.maxSpeed = 3;
             machine.player.speed = machine.player.maxSpeed;
         }
+    }
+
+    private void FX(CharaStateManager machine)
+    {
+        PFX = MonoBehaviour.Instantiate(machine.player.PierceFX,machine.player.transform);
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 public class CharaStateManager : MonoBehaviour
 {
     public CharaBaseState currentState;
+    
     public Stand_EX stand = new Stand_EX();
     public StandUp_EX standUp = new StandUp_EX();
     public Forwards _forwards = new Forwards();
@@ -36,11 +37,13 @@ public class CharaStateManager : MonoBehaviour
     public Player player;
     public BoostBar BB;
 
-    /*alarm info
+    /*alarm info [7]
      alarm[0] = AirKick.SwitchState
      alarm[1] = Collapse.SwitchState
      alarm[2] = StandUp.SwitchState
-     */
+     alarm[3] = AirKick.FX
+     alarm[4] = PierceKick.FX
+               */
 
     private void Awake()
     {
@@ -185,7 +188,6 @@ public class CharaStateManager : MonoBehaviour
     {
         currentState.ExitState(this);
         currentState = state;
-        //Debug.Log(state);
         state.EnterState(this);
     }
 }

@@ -9,6 +9,11 @@ public class Dive_EX : CharaBaseState
         machine.player.anima.Play("Dive");
         machine.player._rig.velocity = Vector2.zero;
         machine.player._rig.AddForce(Vector2.down * 6f, ForceMode2D.Impulse);
+        
+        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[8];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)

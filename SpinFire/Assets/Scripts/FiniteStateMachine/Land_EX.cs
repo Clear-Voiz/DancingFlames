@@ -14,6 +14,19 @@ public class Land_EX : CharaBaseState
         machine.player.maxSpeed = 3f;
         machine.player.increment = 0.1f;
         if (machine.player.speed > machine.player.maxSpeed) machine.player.speed = machine.player.maxSpeed;
+        
+        if (machine.player.face == 1)
+        {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[4];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[1];
+        }
+        else
+        {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
+        }
+        machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[2];
+        machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[3];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)

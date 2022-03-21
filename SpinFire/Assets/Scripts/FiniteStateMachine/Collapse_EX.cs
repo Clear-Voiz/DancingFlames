@@ -10,6 +10,10 @@ public class Collapse_EX : CharaBaseState
         machine.player.invenci = true;
         float time = machine.player.anima.GetCurrentAnimatorStateInfo(0).length;
         machine.StartCoroutine(machine.ring.alarm[1] = machine.ring.Alarm(time, SwitchState, machine));
+        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[8];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)

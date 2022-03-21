@@ -5,11 +5,14 @@ using Lean.Touch;
 using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class CenterActions : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
    public BoostBar BB;
    public Player _player;
+   public Sprite[] options;
+   public Image[] arrowRenderers;
 
    private void Awake()
    {

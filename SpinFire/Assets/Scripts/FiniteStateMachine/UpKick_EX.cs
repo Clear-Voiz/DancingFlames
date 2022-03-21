@@ -5,6 +5,7 @@ using UnityEngine;
 public class UpKick_EX : CharaBaseState
 {
     private float _secs;
+    private GameObject PFX;
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("UpKick");
@@ -13,7 +14,12 @@ public class UpKick_EX : CharaBaseState
         machine.player.isGrounded = false;
         machine.player._rig.AddForce(Vector2.up * (6f), ForceMode2D.Impulse);
         
-        MonoBehaviour.Instantiate(machine.player.PS, machine.player.transform.position, Quaternion.identity);
+        PFX = MonoBehaviour.Instantiate(machine.player.PS, machine.player.transform);
+        
+        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
+        machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[8];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)
@@ -37,7 +43,10 @@ public class UpKick_EX : CharaBaseState
 
     public override void ExitState(CharaStateManager machine)
     {
-        
+        if (PFX)
+        {
+            MonoBehaviour.Destroy(PFX);
+        }
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
