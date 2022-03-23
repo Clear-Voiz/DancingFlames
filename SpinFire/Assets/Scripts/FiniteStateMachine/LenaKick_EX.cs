@@ -15,6 +15,8 @@ public class LenaKick_EX : CharaBaseState
        machine.player.isAttacking = true;
        activated = true;
        time = 0.2f;
+       machine.player.audioSource.clip = machine.player.SFX[0];
+       machine.player.audioSource.PlayDelayed(0.2f);
        
        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];

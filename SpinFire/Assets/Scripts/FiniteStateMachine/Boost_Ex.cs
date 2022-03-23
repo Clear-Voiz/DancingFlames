@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.MemoryProfiler;
 using UnityEngine;
 
 public class Boost_Ex : CharaBaseState
@@ -13,8 +14,8 @@ public class Boost_Ex : CharaBaseState
         machine.player.increment = 0.1f;
         machine.upActions.OnPressedUp += UpKick;
         machine.downActions.OnPressedDown += DownActs;
-        machine.rightActions.OnPressedRight += PierceKick_EX;
-        machine.leftActions.OnPressedLeft += PierceKick_EX;
+        machine.rightActions.OnPressedRight += RightPierce;
+        machine.leftActions.OnPressedLeft += LeftPierce;
 
         if (machine.player.isGrounded)
         {
@@ -27,18 +28,17 @@ public class Boost_Ex : CharaBaseState
             machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[7];
         }
 
-        if (machine.player.face == 1)
+        if ((int)machine.player.face == 1)
         {
             machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[4];
             machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
+            Debug.Log(machine.player.face);
         }
         else
         {
             machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
             machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
         }
-        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[4];
-        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
     }
 
     public override void FixedUpdateState(CharaStateManager machine)
@@ -76,8 +76,8 @@ public class Boost_Ex : CharaBaseState
         machine.player._rig.gravityScale = 1;
         machine.upActions.OnPressedUp -= UpKick;
         machine.downActions.OnPressedDown -= DownActs;
-        machine.rightActions.OnPressedRight -= PierceKick_EX;
-        machine.leftActions.OnPressedLeft -= PierceKick_EX;
+        machine.rightActions.OnPressedRight -= RightPierce;
+        machine.leftActions.OnPressedLeft -= LeftPierce;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
@@ -99,8 +99,8 @@ public class Boost_Ex : CharaBaseState
     {
         machine.upActions.OnPressedUp -= UpKick;
         machine.downActions.OnPressedDown -= DownActs;
-        machine.rightActions.OnPressedRight -= PierceKick_EX;
-        machine.leftActions.OnPressedLeft -= PierceKick_EX;
+        machine.rightActions.OnPressedRight -= RightPierce;
+        machine.leftActions.OnPressedLeft -= LeftPierce;
     }
 
     private void UpKick(CharaStateManager machine)
@@ -120,8 +120,19 @@ public class Boost_Ex : CharaBaseState
         }
     }
 
-    private void PierceKick_EX(CharaStateManager machine)
+    private void RightPierce(CharaStateManager machine)
     {
-        machine.SwitchState(machine.pierceKick);
+        if (machine.player.face == 1)
+        {
+            machine.SwitchState(machine.pierceKick);
+        }
+    }
+    
+    private void LeftPierce(CharaStateManager machine)
+    {
+        if (machine.player.face == -1)
+        {
+            machine.SwitchState(machine.pierceKick);
+        }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ActiveState : RadBaseState
 {
+    public float secs = 0.3f;
     public override void EnterState(RadStateMachine machine)
     {
         machine.anima.Play("Rad_Activate");
@@ -11,12 +12,12 @@ public class ActiveState : RadBaseState
 
     public override void UpdateState(RadStateMachine machine)
     {
-        
+        Chronological(machine);
     }
 
     public override void ExitState(RadStateMachine machine)
     {
-        
+        secs = 0.3f;
     }
 
     public override void OnTriggerEnter2D(RadStateMachine machine, Collider2D other)
@@ -29,6 +30,25 @@ public class ActiveState : RadBaseState
         if (other.CompareTag("Player"))
         {
             machine.SwitchState(machine.inactiveState);
+        }
+    }
+
+    public void Chronological(RadStateMachine machine)
+    {
+        if (secs > 0f)
+        {
+            secs -= 1f*Time.deltaTime;
+        }
+        else
+        {
+            float xScale = machine.eneStats.chara.player.transform.position.x-machine.transform.position.x>0f?(1f):(-1f);
+            var scaleFactor = new Vector3(xScale,1f,1f);
+            GameObject shot = MonoBehaviour.Instantiate(machine.bullet, new Vector3(machine._mainCol.bounds.center.x + machine._mainCol.bounds.extents.x * xScale,machine._mainCol.bounds.center.y-0.15f,machine.transform.position.z),Quaternion.identity); //(machine._mainCol.bounds.extents.x * xScale)
+            Debug.Log(machine._col.bounds.center);
+            Debug.Log(machine._col.bounds.extents.y);
+            shot.transform.localScale = scaleFactor;
+            
+            secs = 1f;
         }
     }
 }

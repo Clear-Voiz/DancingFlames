@@ -6,6 +6,17 @@ using UnityEngine;
 public class HitBoxPlayer : MonoBehaviour
 {
     public int hits { get; private set; }
+    public HashSet<Collider2D> StrikeSet = new HashSet<Collider2D>();
+    public GameObject Explosion;
+    private SoundManager _soundManager;
+    private AudioSource _boomer;
+
+    private void Awake()
+    {
+        Explosion = Resources.Load("ExplosionFX") as GameObject;
+        _soundManager = FindObjectOfType<SoundManager>();
+        _boomer = _soundManager.GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -16,10 +27,18 @@ public class HitBoxPlayer : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            if (hits > 0)
+            if (!StrikeSet.Contains(other))
             {
-                hits--;
-                Destroy(other.gameObject);
+                StrikeSet.Add(other);
+                if (other.GetComponent<EnemyStats>() != null)
+                {
+                    EnemyStats ene = other.GetComponent<EnemyStats>();
+                    ene.isDefeated = true;
+                }
+                _boomer.Play();
+                Instantiate(Explosion, other.transform);
+                //print(other);
+                //Destroy(other.gameObject);
             }
         }
     }

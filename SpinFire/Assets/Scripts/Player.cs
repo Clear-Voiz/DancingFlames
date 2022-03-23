@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     public GameObject AirKickFX;
     public GameObject PierceFX;
     public CenterActions centerActions;
+    public List<AudioClip> SFX;
+    public AudioSource audioSource;
 
     public enum AniStates {forwards, Jump, Suspend, Descend, Land, Boost, UpKick, WallSlide, LenaKick,PierceKick,FromAbove,Dive, AerialSweep,Dash,Lenalee_stand}
 
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour
         AirKickFX = Resources.Load("AirKickFX") as GameObject;
         PierceFX = Resources.Load("PierceFX") as GameObject;
         centerActions = FindObjectOfType<CenterActions>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()

@@ -12,10 +12,18 @@ public class RadStateMachine : MonoBehaviour
 
     public Collider2D _col;
     public Animator anima;
+    public bool isDefeated;
+    public Activate ring = new Activate(3);
+    public GameObject bullet;
+    public EnemyStats eneStats;
+    [HideInInspector]public Collider2D _mainCol;
 
     private void Awake()
     {
         anima = GetComponent<Animator>();
+        bullet = Resources.Load("LaserShot") as GameObject;
+        eneStats = GetComponent<EnemyStats>();
+        _mainCol = GetComponent<Collider2D>();
     }
 
     void Start()
@@ -28,12 +36,16 @@ public class RadStateMachine : MonoBehaviour
     {
         currentState.UpdateState(this);
     }
-
-
+    
     public void SwitchState(RadBaseState state)
     {
         currentState.ExitState(this);
         currentState = state;
         currentState.EnterState(this);
+    }
+
+    public void Destroyer()
+    {
+        Destroy(gameObject);
     }
 }

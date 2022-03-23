@@ -66,7 +66,7 @@ public class CharaStateManager : MonoBehaviour
     void Update()
     {
         currentState.UpdateState(this);
-        Debug.Log(currentState.ToString());
+        
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -83,24 +83,7 @@ public class CharaStateManager : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         currentState.OnCollisionEnter(this,other);
-       /* if (other.collider.CompareTag("Ground"))
-        {
-            if (other.GetContact(0).normal == Vector2.up)
-            {
-                //player.wallColl = true;
-            }
 
-            if (other.GetContact(0).normal == Vector2.right || other.GetContact(0).normal == Vector2.left)
-            {
-                player.wallColl = false;
-                if (player.isBoosting)
-                {
-                    //player.isWallSliding = true;
-                    //Instantiate(player.Up_Impulse, player.transform.position, Quaternion.identity);
-                }
-            }  
-        }*/
-        
     }
     private void OnCollisionExit2D(Collision2D other)
     {
