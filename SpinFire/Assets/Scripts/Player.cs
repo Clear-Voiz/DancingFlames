@@ -15,24 +15,27 @@ public class Player : MonoBehaviour
     public float maxFuel;
     public Vector3 scaleFact;
     public Animator anima;
-    public GameObject PS;
     public float speed;
     public float maxSpeed;
     public bool isBoosting;
     public bool isWallSliding;
     public bool invenci;
+    public bool hasAirdodged;
     public string currentState;
     public float increment = 0.01f;
     public float accel;
     public bool wallColl;
     public float speedGear; //changes between running animations depending on speed
+    public GameObject PS;
     public GameObject KickFX;
     public GameObject Up_Impulse;
     public GameObject AirKickFX;
     public GameObject PierceFX;
+    public GameObject MeteorFX;
     public CenterActions centerActions;
     public List<AudioClip> SFX;
     public AudioSource audioSource;
+    public CharaStateManager chara;
 
     public enum AniStates {forwards, Jump, Suspend, Descend, Land, Boost, UpKick, WallSlide, LenaKick,PierceKick,FromAbove,Dive, AerialSweep,Dash,Lenalee_stand}
 
@@ -46,8 +49,10 @@ public class Player : MonoBehaviour
         Up_Impulse = Resources.Load("Upwards_Impulse") as GameObject;
         AirKickFX = Resources.Load("AirKickFX") as GameObject;
         PierceFX = Resources.Load("PierceFX") as GameObject;
+        MeteorFX = Resources.Load("MeteorFX") as GameObject;
         centerActions = FindObjectOfType<CenterActions>();
         audioSource = GetComponent<AudioSource>();
+        chara = GetComponent<CharaStateManager>();
     }
 
     private void Start()

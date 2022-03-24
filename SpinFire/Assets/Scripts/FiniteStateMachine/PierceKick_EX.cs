@@ -43,7 +43,8 @@ public class PierceKick_EX : CharaBaseState
     {
         machine.player._rig.gravityScale = 1;
         machine.player.isAttacking = false;
-        MonoBehaviour.Destroy(PFX);
+        if (PFX != null) MonoBehaviour.Destroy(PFX);
+        machine.StopCoroutine(machine.ring.alarm[4]);
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)

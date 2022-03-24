@@ -10,6 +10,7 @@ public class Descend_EX : CharaBaseState
         machine.rightActions.OnPressedRight += DescendRightActs;
         machine.leftActions.OnPressedLeft += DescendLeftActs;
         machine.downActions.OnPressedDown += Dive;
+        machine.upActions.OnPressedUp += AirDodge;
         
         if (machine.player.face == 1)
         {
@@ -54,6 +55,7 @@ public class Descend_EX : CharaBaseState
         machine.rightActions.OnPressedRight -= DescendRightActs;
         machine.leftActions.OnPressedLeft -= DescendLeftActs;
         machine.downActions.OnPressedDown -= Dive;
+        machine.upActions.OnPressedUp -= AirDodge;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
@@ -77,6 +79,7 @@ public class Descend_EX : CharaBaseState
         machine.rightActions.OnPressedRight -= DescendRightActs;
         machine.leftActions.OnPressedLeft -= DescendLeftActs;
         machine.downActions.OnPressedDown -= Dive;
+        machine.upActions.OnPressedUp -= AirDodge;
     }
     
     public void DescendRightActs(CharaStateManager machine)
@@ -104,6 +107,17 @@ public class Descend_EX : CharaBaseState
             machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
             machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
             machine.ReverseFace();
+        }
+    }
+    
+    private void AirDodge(CharaStateManager machine)
+    {
+        if (machine.player.hasAirdodged == false)
+        {
+            machine.player._rig.velocity = new Vector2(machine.player._rig.velocity.x, 0f);
+            machine.player._rig.AddForce(new Vector2(0f,8f));
+            machine.player.hasAirdodged = true;
+            machine.SwitchState(machine.aerialSweep);
         }
     }
     

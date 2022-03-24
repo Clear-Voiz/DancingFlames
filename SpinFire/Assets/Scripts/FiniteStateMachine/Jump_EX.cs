@@ -12,6 +12,7 @@ public class Jump_EX : CharaBaseState
         machine.rightActions.OnPressedRight += JumpRightActs;
         machine.leftActions.OnPressedLeft += JumpLeftActs;
         machine.downActions.OnPressedDown += Dive;
+        machine.upActions.OnPressedUp += AirDodge;
         
         if (machine.player.face == 1)
         {
@@ -58,17 +59,18 @@ public class Jump_EX : CharaBaseState
         machine.rightActions.OnPressedRight -= JumpRightActs;
         machine.leftActions.OnPressedLeft -= JumpLeftActs;
         machine.downActions.OnPressedDown -= Dive;
+        machine.upActions.OnPressedUp -= AirDodge;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
-        if (other.collider.CompareTag("Ground"))
+       /* if (other.collider.CompareTag("Ground"))
         {
             if (other.GetContact(0).normal == Vector2.right || other.GetContact(0).normal == Vector2.left)
             {
                 machine.ReverseFace();
             }
-        }
+        }*/
 
         if (other.collider.CompareTag("Damager"))
         {
@@ -81,6 +83,7 @@ public class Jump_EX : CharaBaseState
         machine.rightActions.OnPressedRight -= JumpRightActs;
         machine.leftActions.OnPressedLeft -= JumpLeftActs;
         machine.downActions.OnPressedDown -= Dive;
+        machine.upActions.OnPressedUp -= AirDodge;
     }
     
     private void JumpRightActs(CharaStateManager machine)
@@ -108,6 +111,16 @@ public class Jump_EX : CharaBaseState
             machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
             machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
             machine.ReverseFace();
+        }
+    }
+
+    private void AirDodge(CharaStateManager machine)
+    {
+        if (machine.player.hasAirdodged == false)
+        {
+            machine.player._rig.AddForce(new Vector2(0f,8f));
+            machine.player.hasAirdodged = true;
+            machine.SwitchState(machine.aerialSweep);
         }
     }
     private void Dive(CharaStateManager machine)

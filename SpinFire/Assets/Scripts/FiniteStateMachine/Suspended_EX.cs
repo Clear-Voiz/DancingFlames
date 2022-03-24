@@ -10,6 +10,7 @@ public class Suspended_EX : CharaBaseState
         machine.leftActions.OnPressedLeft += SuspendedLeftActs;
         machine.rightActions.OnPressedRight += SuspendedRightActs;
         machine.downActions.OnPressedDown += Dive;
+        machine.upActions.OnPressedUp += AirDodge;
         
         if (machine.player.face == 1)
         {
@@ -36,11 +37,12 @@ public class Suspended_EX : CharaBaseState
         {
             machine.player._rig.velocity = new Vector2(0f, machine.player._rig.velocity.y);
         }
+        
+        if (machine.player._rig.velocity.y <= -2f) machine.SwitchState(machine.descend);
     }
 
     public override void UpdateState(CharaStateManager machine)
     {
-        if (machine.player._rig.velocity.y <= -2f) machine.SwitchState(machine.descend);
         if (machine.player.isGrounded) machine.SwitchState(machine.land);
         if (machine.player.isBoosting) machine.SwitchState(machine.boost);
         if (Input.GetKeyDown(KeyCode.DownArrow)) machine.SwitchState(machine.dive);
@@ -54,17 +56,18 @@ public class Suspended_EX : CharaBaseState
         machine.leftActions.OnPressedLeft -= SuspendedLeftActs;
         machine.rightActions.OnPressedRight -= SuspendedRightActs;
         machine.downActions.OnPressedDown -= Dive;
+        machine.upActions.OnPressedUp -= AirDodge;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
     {
-        if (other.collider.CompareTag("Ground"))
+        /*if (other.collider.CompareTag("Ground"))
         {
             if (other.GetContact(0).normal == Vector2.right || other.GetContact(0).normal == Vector2.left)
             {
                 machine.ReverseFace();
             }
-        }
+        }*/
         
         if (other.collider.CompareTag("Damager"))
         {
@@ -76,6 +79,7 @@ public class Suspended_EX : CharaBaseState
         machine.leftActions.OnPressedLeft -= SuspendedLeftActs;
         machine.rightActions.OnPressedRight -= SuspendedRightActs;
         machine.downActions.OnPressedDown -= Dive;
+        machine.upActions.OnPressedUp -= AirDodge;
     }
     
     public void SuspendedRightActs(CharaStateManager machine)
@@ -103,6 +107,16 @@ public class Suspended_EX : CharaBaseState
             machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
             machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[5];
             machine.ReverseFace();
+        }
+    }
+    
+    private void AirDodge(CharaStateManager machine)
+    {
+        if (machine.player.hasAirdodged == false)
+        {
+            machine.player._rig.AddForce(new Vector2(0f,8f));
+            machine.player.hasAirdodged = true;
+            machine.SwitchState(machine.aerialSweep);
         }
     }
 

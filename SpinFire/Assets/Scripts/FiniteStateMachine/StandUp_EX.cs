@@ -9,6 +9,8 @@ public class StandUp_EX : CharaBaseState
         machine.player.anima.Play("StandUp");
         float time = machine.player.anima.GetCurrentAnimatorStateInfo(0).length;
         machine.StartCoroutine(machine.ring.alarm[2] = machine.ring.Alarm(time, SwitchState, machine));
+
+        machine.player.hasAirdodged = false;
     }
 
     public override void FixedUpdateState(CharaStateManager machine)

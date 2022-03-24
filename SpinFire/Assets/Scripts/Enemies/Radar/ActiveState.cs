@@ -43,9 +43,7 @@ public class ActiveState : RadBaseState
         {
             float xScale = machine.eneStats.chara.player.transform.position.x-machine.transform.position.x>0f?(1f):(-1f);
             var scaleFactor = new Vector3(xScale,1f,1f);
-            GameObject shot = MonoBehaviour.Instantiate(machine.bullet, new Vector3(machine._mainCol.bounds.center.x + machine._mainCol.bounds.extents.x * xScale,machine._mainCol.bounds.center.y-0.15f,machine.transform.position.z),Quaternion.identity); //(machine._mainCol.bounds.extents.x * xScale)
-            Debug.Log(machine._col.bounds.center);
-            Debug.Log(machine._col.bounds.extents.y);
+            GameObject shot = MonoBehaviour.Instantiate(machine.bullet, new Vector3(machine._mainCol.bounds.center.x + machine._mainCol.bounds.extents.x * xScale,machine._mainCol.bounds.center.y-0.15f,machine.transform.position.z),Quaternion.identity);
             shot.transform.localScale = scaleFactor;
             
             secs = 1f;

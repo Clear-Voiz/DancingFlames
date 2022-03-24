@@ -31,7 +31,7 @@ public class Stand_EX : CharaBaseState
 
     public override void UpdateState(CharaStateManager machine)
     {
-        
+        if (machine.player.isBoosting) machine.SwitchState(machine.boost);
     }
 
     public override void ExitState(CharaStateManager machine)

@@ -14,6 +14,8 @@ public class Land_EX : CharaBaseState
         machine.player.maxSpeed = 3f;
         machine.player.increment = 0.1f;
         if (machine.player.speed > machine.player.maxSpeed) machine.player.speed = machine.player.maxSpeed;
+
+        machine.player.hasAirdodged = false;
         
         if (machine.player.face == 1)
         {

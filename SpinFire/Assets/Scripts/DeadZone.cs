@@ -38,6 +38,7 @@ public class DeadZone : MonoBehaviour
             {
                 FollowCam follower = _cam.GetComponent<FollowCam>();
                 Movement _mov = _player.GetComponent<Movement>();
+                _player.chara.SwitchState(_player.chara.fall);
                 Destroy(_mov);
                 Destroy(follower);
                 initiation = true;

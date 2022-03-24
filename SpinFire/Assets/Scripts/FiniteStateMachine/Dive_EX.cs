@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Dive_EX : CharaBaseState
 {
+    private GameObject meteo;
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("Dive");
@@ -14,6 +15,7 @@ public class Dive_EX : CharaBaseState
         machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[8];
+        meteo = MonoBehaviour.Instantiate(machine.player.MeteorFX, machine.transform);
     }
 
     public override void FixedUpdateState(CharaStateManager machine)
@@ -29,7 +31,10 @@ public class Dive_EX : CharaBaseState
 
     public override void ExitState(CharaStateManager machine)
     {
-        
+        if (meteo != null)
+        {
+            MonoBehaviour.Destroy(meteo);
+        }
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)

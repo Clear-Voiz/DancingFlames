@@ -9,7 +9,7 @@ public class PassTrigger : MonoBehaviour
 
     private void Awake()
     {
-        _rad = FindObjectOfType<RadStateMachine>();
+        _rad = GetComponentInParent<RadStateMachine>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

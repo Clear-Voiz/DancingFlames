@@ -106,6 +106,15 @@ public class Boost_Ex : CharaBaseState
     private void UpKick(CharaStateManager machine)
     {
         if (machine.player.isGrounded) machine.SwitchState(machine.upKick);
+        else
+        {
+            if (machine.player.hasAirdodged == false)
+            {
+                machine.player._rig.AddForce(new Vector2(0f, 5), ForceMode2D.Impulse);
+                machine.player.hasAirdodged = true;
+                machine.SwitchState(machine.aerialSweep);
+            }
+        }
     }
     
     private void DownActs(CharaStateManager machine)
