@@ -16,6 +16,8 @@ public class RadStateMachine : MonoBehaviour
     public GameObject bullet;
     public EnemyStats eneStats;
     [HideInInspector]public Collider2D _mainCol;
+    [HideInInspector] public Player player;
+    private float replenish = 5f;
 
     private void Awake()
     {
@@ -24,6 +26,7 @@ public class RadStateMachine : MonoBehaviour
         bullet = Resources.Load("LaserShot") as GameObject;
         eneStats = GetComponent<EnemyStats>();
         _mainCol = GetComponent<Collider2D>();
+        player = FindObjectOfType<Player>();
     }
 
     void Start()
@@ -47,5 +50,17 @@ public class RadStateMachine : MonoBehaviour
     public void Destroyer()
     {
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        if (player.fuel < player.maxFuel - replenish)
+        {
+            player.fuel += replenish;
+        }
+        else
+        {
+            player.fuel = player.maxFuel;
+        }
     }
 }
