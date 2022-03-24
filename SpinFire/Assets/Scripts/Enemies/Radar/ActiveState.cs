@@ -46,7 +46,7 @@ public class ActiveState : RadBaseState
             GameObject shot = MonoBehaviour.Instantiate(machine.bullet, new Vector3(machine._mainCol.bounds.center.x + machine._mainCol.bounds.extents.x * xScale,machine._mainCol.bounds.center.y-0.15f,machine.transform.position.z),Quaternion.identity);
             shot.transform.localScale = scaleFactor;
             
-            secs = 1f;
+            secs = 1.5f;
         }
     }
 }

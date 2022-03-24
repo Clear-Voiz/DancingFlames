@@ -12,6 +12,9 @@ public class WallSlide_EX : CharaBaseState
         machine.player.isWallSliding = true;
         machine.player._rig.gravityScale = 0;
         MonoBehaviour.Instantiate(machine.player.Up_Impulse, machine.player.transform.position, Quaternion.identity);
+
+        machine.rightActions.OnPressedRight += WallSlideRightActs;
+        machine.leftActions.OnPressedLeft += WallSlideLeftActs;
         
         machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
@@ -48,6 +51,8 @@ public class WallSlide_EX : CharaBaseState
 
     public override void ExitState(CharaStateManager machine)
     {
+        machine.rightActions.OnPressedRight -= WallSlideRightActs;
+        machine.leftActions.OnPressedLeft -= WallSlideLeftActs;
         machine.player.isWallSliding = false;
         machine.player._rig.gravityScale = 1;
         if (machine.player.wallColl)
@@ -67,6 +72,23 @@ public class WallSlide_EX : CharaBaseState
 
     public override void OnDisableState(CharaStateManager machine)
     {
-       
+        machine.rightActions.OnPressedRight -= WallSlideRightActs;
+        machine.leftActions.OnPressedLeft -= WallSlideLeftActs;
+    }
+
+    private void WallSlideRightActs(CharaStateManager machine)
+    {
+        if (machine.player.face == -1f)
+        {
+            machine.SwitchState(machine.wallImpulse);
+        }
+    }
+    
+    private void WallSlideLeftActs(CharaStateManager machine)
+    {
+        if (machine.player.face == 1f)
+        {
+            machine.SwitchState(machine.wallImpulse);
+        }
     }
 }

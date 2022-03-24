@@ -25,6 +25,7 @@ public class CharaStateManager : MonoBehaviour
     public Dash_EX dash = new Dash_EX();
     public Aerial_Sweep_EX aerialSweep = new Aerial_Sweep_EX();
     public WallSlide_EX wallSlide = new WallSlide_EX();
+    public WallImpulse_EX wallImpulse = new WallImpulse_EX();
     public PierceKick_EX pierceKick = new PierceKick_EX();
     public Activate ring;
     
