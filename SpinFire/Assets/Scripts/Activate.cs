@@ -7,17 +7,28 @@ public class Activate
 {
     //alarms
 
-    public IEnumerator[] alarm;
+    public float[] alarm;
 
-       
-        public IEnumerator Alarm(float time, Action<CharaStateManager> act, CharaStateManager machine)
+
+        public float Alarm(float time, Action act)
         {
-            yield return new WaitForSeconds(time);
-            act(machine);
+            if (time > 0f)
+            {
+                time -= 1f * Time.deltaTime;
+                if (time <= 0f)
+                {
+                    act();
+                }
+            }
+
+            return time;
         }
+        
 
         public Activate(int alarms)
         {
-            alarm = new IEnumerator[alarms];
+            alarm = new float[alarms];
         }
+        
+        //public void trial(CharaStateManager machine){}
 }

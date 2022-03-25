@@ -16,8 +16,17 @@ public class WallSlide_EX : CharaBaseState
         machine.rightActions.OnPressedRight += WallSlideRightActs;
         machine.leftActions.OnPressedLeft += WallSlideLeftActs;
         
-        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
-        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
+        if ((int)machine.player.face == 1)
+        {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[1];
+        }
+        else if ((int)machine.player.face == -1)
+        {
+            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
+            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
+        }
+        
         machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[8];
     }
@@ -30,7 +39,7 @@ public class WallSlide_EX : CharaBaseState
 
     public override void UpdateState(CharaStateManager machine)
     {
-        if (!machine.player.isBoosting) machine.SwitchState(machine.suspended);
+        if (!machine.player.isBoosting) machine.SwitchState(machine.rebalance);
 
         if (!machine.player.wallColl)
         {

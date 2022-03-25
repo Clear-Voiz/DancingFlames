@@ -24,6 +24,7 @@ public class CharaStateManager : MonoBehaviour
     public AirKick_EX airKick = new AirKick_EX();
     public Dash_EX dash = new Dash_EX();
     public Aerial_Sweep_EX aerialSweep = new Aerial_Sweep_EX();
+    public Rebalance_EX rebalance = new Rebalance_EX();
     public WallSlide_EX wallSlide = new WallSlide_EX();
     public WallImpulse_EX wallImpulse = new WallImpulse_EX();
     public PierceKick_EX pierceKick = new PierceKick_EX();
@@ -39,11 +40,13 @@ public class CharaStateManager : MonoBehaviour
     public BoostBar BB;
 
     /*alarm info [7]
-     alarm[0] = AirKick.SwitchState
-     alarm[1] = Collapse.SwitchState
-     alarm[2] = StandUp.SwitchState
-     alarm[3] = AirKick.FX
-     alarm[4] = PierceKick.FX
+     alarm[0] = AirKick.SwitchState x
+     alarm[1] = Collapse.SwitchState x
+     alarm[2] = StandUp.SwitchState x
+     alarm[3] = AirKick.FX x
+     alarm[4] = PierceKick.FX x
+     alarm[5] = WallImpulse.Impulse x
+     alarm[6] = WallImpulse.Next x
                */
 
     private void Awake()
@@ -58,7 +61,7 @@ public class CharaStateManager : MonoBehaviour
 
     void Start()
     {
-        ring = new Activate(7);
+        ring = new Activate(10);
         currentState = stand;
         currentState.EnterState(this);
     }

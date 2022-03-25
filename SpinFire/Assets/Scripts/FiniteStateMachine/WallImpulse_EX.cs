@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class WallImpulse_EX : CharaBaseState
 {
+    private CharaStateManager charaMachine;
+    private float[] time = new float[2];
     public override void EnterState(CharaStateManager machine)
     {
         machine.ReverseFace();
         machine.player.anima.Play("WallImpulse");
         machine.player._rig.gravityScale = 0f;
         machine.player.speed = 5f;
+        charaMachine = machine;
 
-        machine.StartCoroutine(machine.ring.alarm[5] = machine.ring.Alarm(0.3f,Impulse, machine));
-        machine.StartCoroutine(machine.ring.alarm[6] = machine.ring.Alarm(0.5f, Next, machine));
-        
+        time[0] = 0.3f; // Impulse
+        time[1] = 0.5f; // Next
+
         machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
@@ -27,7 +30,8 @@ public class WallImpulse_EX : CharaBaseState
 
     public override void UpdateState(CharaStateManager machine)
     {
-        
+        time[0] = machine.ring.alarm[5] = machine.ring.Alarm(time[0], Impulse);
+        time[1] = machine.ring.alarm[6] = machine.ring.Alarm(time[1], Next);
     }
 
     public override void ExitState(CharaStateManager machine)
@@ -48,21 +52,21 @@ public class WallImpulse_EX : CharaBaseState
         
     }
 
-    private void Impulse(CharaStateManager machine)
+    private void Impulse()
     {
-        machine.player._rig.AddForce(Vector2.right * machine.player.face * 8f,ForceMode2D.Impulse);
+        charaMachine.player._rig.AddForce(Vector2.right * charaMachine.player.face * 8f,ForceMode2D.Impulse);
     }
 
-    private void Next(CharaStateManager machine)
+    private void Next()
     {
         Debug.Log("has been executed");
-        if (machine.player.isBoosting)
+        if (charaMachine.player.isBoosting)
         {
-            machine.SwitchState(machine.boost);
+            charaMachine.SwitchState(charaMachine.boost);
         }
         else
         {
-            machine.SwitchState(machine.suspended);
+            charaMachine.SwitchState(charaMachine.suspended);
         }
     }
 }

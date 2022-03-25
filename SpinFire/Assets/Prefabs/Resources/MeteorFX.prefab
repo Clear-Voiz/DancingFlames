@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5986339035352920550}
   - component: {fileID: 5866094276899841137}
   - component: {fileID: -2118801498746506329}
-  - component: {fileID: -2487022425414960747}
+  - component: {fileID: 3095598552284278512}
   m_Layer: 0
   m_Name: MeteorFX
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5986339035352920551}
   m_LocalRotation: {x: -0, y: -0, z: -0.708916, w: 0.70529294}
-  m_LocalPosition: {x: -0.2, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -49,7 +49,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -74,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2516312844803823107, guid: 4d63d9f99f7b8bf41bae051b678bbca1,
+  m_Sprite: {fileID: 1532966429050809931, guid: 12d80860d04f40f46864f0db55d18a4e,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -111,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c3dcbb6812f4624686e8d0b36690e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &-2487022425414960747
+--- !u!61 &3095598552284278512
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,10 +123,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.1953125}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.671875, y: 0.390625}
     newSize: {x: 0.671875, y: 0.390625}
     adaptiveTilingThreshold: 0.5

@@ -5,17 +5,20 @@ using UnityEngine;
 public class PierceKick_EX : CharaBaseState
 {
     private float secs;
+    private float timed;
     private GameObject PFX;
+    private CharaStateManager charaMachine;
     public override void EnterState(CharaStateManager machine)
     {
+        charaMachine = machine;
         machine.player.anima.Play("PierceKick");
         var time = machine.player.anima.GetCurrentAnimatorStateInfo(0);
         secs = time.length * 4f;
+        timed = 0.2f;
         
         machine.player._rig.gravityScale = 0;
         machine.player.isAttacking = true;
-        machine.StartCoroutine(machine.ring.alarm[4] = machine.ring.Alarm(0.2f, FX, machine));
-        
+
         machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
@@ -37,6 +40,7 @@ public class PierceKick_EX : CharaBaseState
     public override void UpdateState(CharaStateManager machine)
     {
         Chronological(machine);
+        timed = machine.ring.alarm[4] = machine.ring.Alarm(timed, FX);
     }
 
     public override void ExitState(CharaStateManager machine)
@@ -44,7 +48,6 @@ public class PierceKick_EX : CharaBaseState
         machine.player._rig.gravityScale = 1;
         machine.player.isAttacking = false;
         if (PFX != null) MonoBehaviour.Destroy(PFX);
-        machine.StopCoroutine(machine.ring.alarm[4]);
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)
@@ -103,8 +106,8 @@ public class PierceKick_EX : CharaBaseState
         }
     }
 
-    private void FX(CharaStateManager machine)
+    private void FX()
     {
-        PFX = MonoBehaviour.Instantiate(machine.player.PierceFX,machine.player.transform);
+        PFX = MonoBehaviour.Instantiate(charaMachine.player.PierceFX,charaMachine.player.transform);
     }
 }

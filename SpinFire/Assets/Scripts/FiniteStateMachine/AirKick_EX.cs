@@ -5,13 +5,16 @@ using UnityEngine;
 public class AirKick_EX : CharaBaseState
 {
     private GameObject PFX;
+    private float[] time = new float[2];
+    private CharaStateManager charaMachine;
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("AirKick");
-        var time = machine.player.anima.GetCurrentAnimatorStateInfo(0).length *2f;
-        machine.StartCoroutine(machine.ring.alarm[0] = machine.ring.Alarm(time, SwitchState,machine));
+        charaMachine = machine;
+        time[0] = 0.6f;
+        time[1] = 0.2f;
         machine.player.isAttacking = true;
-        machine.StartCoroutine(machine.ring.alarm[3] = machine.ring.Alarm(0.2f, FX, machine));
+
         machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
@@ -33,13 +36,16 @@ public class AirKick_EX : CharaBaseState
     public override void UpdateState(CharaStateManager machine)
     {
         if (machine.player.isGrounded) machine.SwitchState(machine.land);
+        machine.ring.alarm[0] = machine.ring.Alarm(time[0],SwitchState);
+        
+        time[0] = machine.ring.alarm[0] = machine.ring.Alarm(time[0],SwitchState);
+        time[1] = machine.ring.alarm[3] = machine.ring.Alarm(time[1], FX);
     }
 
     public override void ExitState(CharaStateManager machine)
     {
         machine.player.isAttacking = false;
-        machine.StopCoroutine(nameof(FX));
-        if (PFX)
+        if (PFX != null)
         {
             MonoBehaviour.Destroy(PFX);
         }
@@ -58,20 +64,20 @@ public class AirKick_EX : CharaBaseState
        
     }
 
-    private void SwitchState(CharaStateManager machine)
+    private void SwitchState()
     {
-        if (machine.player._rig.velocity.y > -2f)
+        if (charaMachine.player._rig.velocity.y > -2f)
         {
-            machine.SwitchState(machine.suspended);
+            charaMachine.SwitchState(charaMachine.suspended);
         }
-        else if (machine.player._rig.velocity.y <= -2f)
+        else if (charaMachine.player._rig.velocity.y <= -2f)
         {
-            machine.SwitchState(machine.descend);
+            charaMachine.SwitchState(charaMachine.descend);
         }
     }
 
-    private void FX(CharaStateManager machine)
+    private void FX()
     {
-        PFX = MonoBehaviour.Instantiate(machine.player.AirKickFX, machine.player.transform);
+        PFX = MonoBehaviour.Instantiate(charaMachine.player.AirKickFX, charaMachine.player.transform);
     }
 }
