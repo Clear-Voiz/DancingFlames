@@ -7,6 +7,7 @@ public class Dash_EX : CharaBaseState
     private float secs;
     public override void EnterState(CharaStateManager machine)
     {
+        machine.gameObject.layer = 11;
         machine.player.anima.Play("Dash");
         var aniEnd = machine.player.anima.GetCurrentAnimatorStateInfo(0);
         secs = aniEnd.length*2f;
@@ -36,7 +37,7 @@ public class Dash_EX : CharaBaseState
 
     public override void ExitState(CharaStateManager machine)
     {
-        
+        machine.gameObject.layer = 10;
     }
 
     public override void OnCollisionEnter(CharaStateManager machine, Collision2D other)

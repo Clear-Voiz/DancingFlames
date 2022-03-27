@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActiveState : RadBaseState
 {
-    public float secs = 0.3f;
+    public float secs = 0.4f;
     public override void EnterState(RadStateMachine machine)
     {
         machine.anima.Play("Rad_Activate");
@@ -17,7 +17,7 @@ public class ActiveState : RadBaseState
 
     public override void ExitState(RadStateMachine machine)
     {
-        secs = 0.3f;
+        secs = 0.4f;
     }
 
     public override void OnTriggerEnter2D(RadStateMachine machine, Collider2D other)

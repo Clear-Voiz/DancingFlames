@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5074115143645525541}
   - component: {fileID: 2188128736282090190}
   - component: {fileID: 7237927593229166216}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LaserShot
   m_TagString: Damager
   m_Icon: {fileID: 0}
@@ -62,7 +62,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
