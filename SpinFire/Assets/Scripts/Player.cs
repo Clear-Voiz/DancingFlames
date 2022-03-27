@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         face = 1f;
-        maxFuel = 40;
+        maxFuel = 200; // used to be 40
         fuel = maxFuel;
         scaleFact = new Vector3(1f, 1f, 1f);
         speedGear = 4f;

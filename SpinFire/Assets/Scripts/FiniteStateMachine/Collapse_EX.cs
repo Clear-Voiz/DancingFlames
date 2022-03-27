@@ -31,6 +31,10 @@ public class Collapse_EX : CharaBaseState
     public override void UpdateState(CharaStateManager machine)
     {
         time = machine.ring.alarm[1] = machine.ring.Alarm(time, SwitchState);
+        if (!machine.player.isGrounded)
+        {
+            machine.SwitchState(machine.fall);
+        }
     }
 
     public override void ExitState(CharaStateManager machine)

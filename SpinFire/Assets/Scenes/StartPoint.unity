@@ -4343,7 +4343,7 @@ PrefabInstance:
     - target: {fileID: 6643018413581109909, guid: 6a7798aa56baf4e4ab291e1295089768,
         type: 3}
       propertyPath: m_Name
-      value: Deadzone
+      value: DeadZone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a7798aa56baf4e4ab291e1295089768, type: 3}

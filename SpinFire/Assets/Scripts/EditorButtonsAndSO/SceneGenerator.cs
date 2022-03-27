@@ -25,6 +25,7 @@ public class SceneGenerator : MonoBehaviour
         GameObject GameManager = Resources.Load("GAME") as GameObject;
         GameObject eventSystem = Resources.Load("EventSystem") as GameObject;
         GameObject Gas = Resources.Load("Gas") as GameObject;
+        GameObject deadZone = Resources.Load("DeadZone") as GameObject;
         Instantiate(GameManager, Vector3.zero, Quaternion.identity);
         Instantiate(CanvasHUD, Vector3.zero, Quaternion.identity);
         Instantiate(MainCamera);
@@ -33,6 +34,7 @@ public class SceneGenerator : MonoBehaviour
         Instantiate(Ground, Vector3.down * 0.3f, Quaternion.identity);
         Instantiate(Radar, Vector3.right * 3f, Quaternion.identity);
         Instantiate(Gas, Vector3.left * 3f, Quaternion.identity);
+        Instantiate(deadZone, Vector3.down * 2f, Quaternion.identity);
         Instantiate(eventSystem);
         //Instantiate(EventSystem)
 

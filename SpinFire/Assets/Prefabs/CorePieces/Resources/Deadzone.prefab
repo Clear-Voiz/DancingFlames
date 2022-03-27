@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 348814224031136836}
   - component: {fileID: -8262894779477963474}
   m_Layer: 0
-  m_Name: Deadzone
+  m_Name: DeadZone
   m_TagString: DZ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6643018413581109909}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8.074995, y: 0.9764166, z: 1}
+  m_LocalScale: {x: 74.24968, y: 0.26851457, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -95,7 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6498b28a47cf847bb0c931cfa27591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 7124719493329747495, guid: d70f8f8a09fc0dd4da8e2bf20b0c916d,
+    type: 3}
 --- !u!61 &-8262894779477963474
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -109,7 +110,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 3.0385866, y: -0.35822085}
+  m_Offset: {x: -0.0010077655, y: -0.001726687}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -120,5 +121,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.6056232, y: 0.2835583}
+  m_Size: {x: 1.0013683, y: 0.9965466}
   m_EdgeRadius: 0

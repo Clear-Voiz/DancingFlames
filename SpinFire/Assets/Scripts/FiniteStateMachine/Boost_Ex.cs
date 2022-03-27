@@ -32,7 +32,6 @@ public class Boost_Ex : CharaBaseState
         {
             machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[4];
             machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
-            Debug.Log(machine.player.face);
         }
         else
         {

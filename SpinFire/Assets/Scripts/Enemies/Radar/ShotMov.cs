@@ -9,6 +9,8 @@ public class ShotMov : MonoBehaviour
 
     private Animator _animator;
     private Rigidbody2D _rig;
+    public RadStateMachine _rad;
+    private Vector2 dir;
 
     private void Awake()
     {
@@ -25,13 +27,17 @@ public class ShotMov : MonoBehaviour
     {
         if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.6f)
         {
-            _rig.velocity = Vector2.right * speed * transform.localScale.x;
+            if (_rad != null)
+            {
+                dir = _rad.transform.right;
+            }
+            _rig.velocity = dir * speed * transform.localScale.x;
         }  
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.collider.CompareTag("Player"))
+        if (other.collider.CompareTag("Player") || other.collider.CompareTag("Ground"))
         {
             Destroy(gameObject);
         }

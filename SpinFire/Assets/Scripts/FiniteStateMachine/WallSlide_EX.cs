@@ -16,17 +16,10 @@ public class WallSlide_EX : CharaBaseState
         machine.rightActions.OnPressedRight += WallSlideRightActs;
         machine.leftActions.OnPressedLeft += WallSlideLeftActs;
         
-        if ((int)machine.player.face == 1)
-        {
-            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
-            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[1];
-        }
-        else if ((int)machine.player.face == -1)
-        {
-            machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
-            machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
-        }
         
+        
+        machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[0];
+        machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[1];
         machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[8];
     }
@@ -91,6 +84,10 @@ public class WallSlide_EX : CharaBaseState
         {
             machine.SwitchState(machine.wallImpulse);
         }
+        else
+        {
+            machine.SwitchState(machine.wallDash);
+        }
     }
     
     private void WallSlideLeftActs(CharaStateManager machine)
@@ -98,6 +95,10 @@ public class WallSlide_EX : CharaBaseState
         if (machine.player.face == 1f)
         {
             machine.SwitchState(machine.wallImpulse);
+        }
+        else
+        {
+            machine.SwitchState(machine.wallDash);
         }
     }
 }
