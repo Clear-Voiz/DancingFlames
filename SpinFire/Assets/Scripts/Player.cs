@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float face;
     public bool isGrounded;
     public bool isAttacking;
+    public bool isReverseBoosting;
     public bool wait;
     public float fuel;
     public float maxFuel;
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
     public GameObject AirKickFX;
     public GameObject PierceFX;
     public GameObject MeteorFX;
+    public GameObject EruptionFX;
     public CenterActions centerActions;
     public List<AudioClip> SFX;
     public AudioSource audioSource;
@@ -50,6 +52,7 @@ public class Player : MonoBehaviour
         AirKickFX = Resources.Load("AirKickFX") as GameObject;
         PierceFX = Resources.Load("PierceFX") as GameObject;
         MeteorFX = Resources.Load("MeteorFX") as GameObject;
+        EruptionFX = Resources.Load("EruptionFX") as GameObject;
         centerActions = FindObjectOfType<CenterActions>();
         audioSource = GetComponent<AudioSource>();
         chara = GetComponent<CharaStateManager>();

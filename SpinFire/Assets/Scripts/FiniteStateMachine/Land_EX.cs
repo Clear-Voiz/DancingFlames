@@ -8,8 +8,7 @@ public class Land_EX : CharaBaseState
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("Land");
-        var time = machine.player.anima.GetCurrentAnimatorStateInfo(0);
-        secs = time.length;
+        secs = 0.2f;
         
         machine.player.maxSpeed = 3f;
         machine.player.increment = 0.1f;

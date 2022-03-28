@@ -10,8 +10,7 @@ public class Aerial_Sweep_EX : CharaBaseState
     {
         machine.player.anima.Play("AerialSweep");
         var aniEnd = machine.player.anima.GetCurrentAnimatorStateInfo(0);
-        secs = aniEnd.length * 3f;
-
+        secs = 0.6f;//aniEnd.length * 3f;
         machine.player.isAttacking = true;
         
         machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
@@ -31,6 +30,7 @@ public class Aerial_Sweep_EX : CharaBaseState
     public override void UpdateState(CharaStateManager machine)
     {
        if (machine.player.isGrounded) machine.SwitchState(machine.land);
+       if (machine.player.wallColl && machine.player.isBoosting) machine.SwitchState(machine.wallSlide);
        Chronological(machine);
     }
 

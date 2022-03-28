@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneGenerator : MonoBehaviour
 {
-    [MenuItem("Generate/Scenography")]
+   [MenuItem("Generate/Scenography")]
     static void Sandboxer()
     {
         var currentScene = EditorSceneManager.GetActiveScene();
@@ -36,7 +36,5 @@ public class SceneGenerator : MonoBehaviour
         Instantiate(Gas, Vector3.left * 3f, Quaternion.identity);
         Instantiate(deadZone, Vector3.down * 2f, Quaternion.identity);
         Instantiate(eventSystem);
-        //Instantiate(EventSystem)
-
     }
 }

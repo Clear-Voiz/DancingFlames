@@ -9,9 +9,8 @@ public class LenaKick_EX : CharaBaseState
     private bool activated = true;
     public override void EnterState(CharaStateManager machine)
     {
-        machine.player.anima.Play("LenaKick");
-       var aniEnd = machine.player.anima.GetCurrentAnimatorStateInfo(0);
-       secs = aniEnd.length;
+        machine.player.anima.Play("LenaKick"); 
+        secs = 0.6f;
        machine.player.isAttacking = true;
        activated = true;
        time = 0.2f;

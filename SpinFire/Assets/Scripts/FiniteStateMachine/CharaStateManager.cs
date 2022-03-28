@@ -8,27 +8,30 @@ public class CharaStateManager : MonoBehaviour
 {
     public CharaBaseState currentState;
     
-    public Stand_EX stand = new Stand_EX();
-    public StandUp_EX standUp = new StandUp_EX();
-    public Forwards _forwards = new Forwards();
-    public Fall_EX fall = new Fall_EX();
+    public Aerial_Sweep_EX aerialSweep = new Aerial_Sweep_EX();
+    public AirKick_EX airKick = new AirKick_EX();
     public Boost_Ex boost = new Boost_Ex();
     public Collapse_EX collapse = new Collapse_EX();
-    public Jump_EX jump = new Jump_EX();
-    public Suspended_EX suspended = new Suspended_EX();
-    public LenaKick_EX lenakick = new LenaKick_EX();
-    public Descend_EX descend = new Descend_EX();
-    public Land_EX land = new Land_EX();
-    public Dive_EX dive = new Dive_EX();
-    public UpKick_EX upKick = new UpKick_EX();
-    public AirKick_EX airKick = new AirKick_EX();
     public Dash_EX dash = new Dash_EX();
-    public Aerial_Sweep_EX aerialSweep = new Aerial_Sweep_EX();
+    public Descend_EX descend = new Descend_EX();
+    public Dive_EX dive = new Dive_EX();
+    public Fall_EX fall = new Fall_EX();
+    public Forwards _forwards = new Forwards();
+    public Guard_EX guard = new Guard_EX();
+    public Jump_EX jump = new Jump_EX();
+    public LenaKick_EX lenakick = new LenaKick_EX();
+    public Land_EX land = new Land_EX();
+    public PierceKick_EX pierceKick = new PierceKick_EX();
     public Rebalance_EX rebalance = new Rebalance_EX();
+    public ReverseBoost_EX reverseBoost = new ReverseBoost_EX();
+    public Stand_EX stand = new Stand_EX();
+    public StandUp_EX standUp = new StandUp_EX();
+    public Suspended_EX suspended = new Suspended_EX();
+    public UpKick_EX upKick = new UpKick_EX();
     public WallDash_EX wallDash = new WallDash_EX();
     public WallSlide_EX wallSlide = new WallSlide_EX();
     public WallImpulse_EX wallImpulse = new WallImpulse_EX();
-    public PierceKick_EX pierceKick = new PierceKick_EX();
+
     public Activate ring;
     
     //Buttons
@@ -48,7 +51,10 @@ public class CharaStateManager : MonoBehaviour
      alarm[4] = PierceKick.FX x
      alarm[5] = WallImpulse.Impulse x
      alarm[6] = WallImpulse.Next x
-               */
+     alarm[7] = ReverseBoost.Next
+     alarm[8] = WallImpulse.Eruption
+     alarm[9] = Guard.Next
+                    */
 
     private void Awake()
     {

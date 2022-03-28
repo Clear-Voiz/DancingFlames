@@ -10,7 +10,7 @@ public class Dash_EX : CharaBaseState
         machine.gameObject.layer = 11;
         machine.player.anima.Play("Dash");
         var aniEnd = machine.player.anima.GetCurrentAnimatorStateInfo(0);
-        secs = aniEnd.length*2f;
+        secs = 0.6f;//aniEnd.length*2f;
         
         machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];

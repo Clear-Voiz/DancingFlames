@@ -6,6 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Testing_verticalityI.unity
+    guid: e4db893d84db29848909bfa24ce45c67
+  - enabled: 1
     path: Assets/Scenes/StartPoint.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Testing_BigBoy_fromAbove.unity
+    guid: e1df7113fa068b0489b6a4601fc02b45
+  - enabled: 1
+    path: Assets/Scenes/Testing_horizontalityI.unity
+    guid: 2c6198c3b407bcf4a96fa4b29ce7c69d
+  - enabled: 1
+    path: Assets/Scenes/Testing_verticalityII.unity
+    guid: 7c6099505e5687e498fa2b27b9631d30
+  - enabled: 1
+    path: Assets/Scenes/Testing_VerticalRads.unity
+    guid: 4c8322735c1859141bab793e2ab6498e
   m_configObjects: {}

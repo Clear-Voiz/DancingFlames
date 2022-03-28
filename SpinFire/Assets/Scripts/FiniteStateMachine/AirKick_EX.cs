@@ -6,11 +6,9 @@ public class AirKick_EX : CharaBaseState
 {
     private GameObject PFX;
     private float[] time = new float[2];
-    private CharaStateManager charaMachine;
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("AirKick");
-        charaMachine = machine;
         time[0] = 0.6f;
         time[1] = 0.2f;
         machine.player.isAttacking = true;
@@ -36,10 +34,10 @@ public class AirKick_EX : CharaBaseState
     public override void UpdateState(CharaStateManager machine)
     {
         if (machine.player.isGrounded) machine.SwitchState(machine.land);
-        machine.ring.alarm[0] = machine.ring.Alarm(time[0],SwitchState);
+        machine.ring.alarm[0] = machine.ring.Alarm(time[0],SwitchState, machine);
         
-        time[0] = machine.ring.alarm[0] = machine.ring.Alarm(time[0],SwitchState);
-        time[1] = machine.ring.alarm[3] = machine.ring.Alarm(time[1], FX);
+        time[0] = machine.ring.alarm[0] = machine.ring.Alarm(time[0],SwitchState, machine);
+        time[1] = machine.ring.alarm[3] = machine.ring.Alarm(time[1], FX, machine);
     }
 
     public override void ExitState(CharaStateManager machine)
@@ -64,20 +62,20 @@ public class AirKick_EX : CharaBaseState
        
     }
 
-    private void SwitchState()
+    private void SwitchState(CharaStateManager machine)
     {
-        if (charaMachine.player._rig.velocity.y > -2f)
+        if (machine.player._rig.velocity.y > -2f)
         {
-            charaMachine.SwitchState(charaMachine.suspended);
+            machine.SwitchState(machine.suspended);
         }
-        else if (charaMachine.player._rig.velocity.y <= -2f)
+        else if (machine.player._rig.velocity.y <= -2f)
         {
-            charaMachine.SwitchState(charaMachine.descend);
+            machine.SwitchState(machine.descend);
         }
     }
 
-    private void FX()
+    private void FX(CharaStateManager machine)
     {
-        PFX = MonoBehaviour.Instantiate(charaMachine.player.AirKickFX, charaMachine.player.transform);
+        PFX = MonoBehaviour.Instantiate(machine.player.AirKickFX, machine.player.transform);
     }
 }

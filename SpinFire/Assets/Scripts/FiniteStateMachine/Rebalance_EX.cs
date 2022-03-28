@@ -5,11 +5,9 @@ using UnityEngine;
 public class Rebalance_EX : CharaBaseState
 {
     private float _exitTime;
-    private CharaStateManager _charaMachine;
     public override void EnterState(CharaStateManager machine)
     {
         _exitTime = 0.4f;
-        _charaMachine = machine;
         machine.player.anima.Play("Rebalance");
         machine.player._rig.velocity = Vector2.up;
         
@@ -26,7 +24,7 @@ public class Rebalance_EX : CharaBaseState
 
     public override void UpdateState(CharaStateManager machine)
     {
-        _exitTime = machine.ring.alarm[7] = machine.ring.Alarm(_exitTime, Suspended);
+        _exitTime = machine.ring.alarm[7] = machine.ring.Alarm(_exitTime, Suspended,machine);
         if (machine.player.isGrounded) machine.SwitchState(machine.land);
     }
 
@@ -48,15 +46,15 @@ public class Rebalance_EX : CharaBaseState
         
     }
 
-    private void Suspended()
+    private void Suspended(CharaStateManager machine)
     {
-        if (!_charaMachine.player.isGrounded)
+        if (!machine.player.isGrounded)
         {
-            _charaMachine.SwitchState(_charaMachine.suspended);
+            machine.SwitchState(machine.suspended);
         }
         else
         {
-            _charaMachine.SwitchState(_charaMachine.land);
+            machine.SwitchState(machine.land);
         }
     }
 }

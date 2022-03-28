@@ -11,6 +11,7 @@ public class Stand_EX : CharaBaseState
         machine.rightActions.OnPressedRight += StandRightActs;
         machine.leftActions.OnPressedLeft += StandLeftActs;
         machine.upActions.OnPressedUp += Jump;
+        machine.downActions.OnPressedDown += Engarde;
         machine.player.speed = 0f;
         if (!machine.player.wallColl) machine.player._rig.velocity = Vector2.right * machine.player.face;
         else
@@ -39,6 +40,7 @@ public class Stand_EX : CharaBaseState
         machine.rightActions.OnPressedRight -= StandRightActs;
         machine.leftActions.OnPressedLeft -= StandLeftActs;
         machine.upActions.OnPressedUp -= Jump;
+        machine.downActions.OnPressedDown -= Engarde;
         machine.player.speed = 3f;
     }
 
@@ -55,6 +57,7 @@ public class Stand_EX : CharaBaseState
         machine.rightActions.OnPressedRight -= StandRightActs;
         machine.leftActions.OnPressedLeft -= StandLeftActs;
         machine.upActions.OnPressedUp -= Jump;
+        machine.downActions.OnPressedDown -= Engarde;
     }
     
     private void StandRightActs(CharaStateManager machine)
@@ -95,6 +98,11 @@ public class Stand_EX : CharaBaseState
     private void Jump(CharaStateManager machine)
     {
         machine.SwitchState(machine.jump);
+    }
+
+    private void Engarde(CharaStateManager machine)
+    {
+        machine.SwitchState(machine.guard);
     }
     
 }

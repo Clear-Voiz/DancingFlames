@@ -10,14 +10,14 @@ public class Activate
     public float[] alarm;
 
 
-        public float Alarm(float time, Action act)
+        public float Alarm(float time, Action<CharaStateManager> act, CharaStateManager machine)
         {
             if (time > 0f)
             {
                 time -= 1f * Time.deltaTime;
                 if (time <= 0f)
                 {
-                    act();
+                    act(machine);
                 }
             }
 

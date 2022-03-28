@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class Collapse_EX : CharaBaseState
 {
-    private CharaStateManager charaMachine;
     private float time;
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("Collapse");
         machine.player.invenci = true;
-        charaMachine = machine;
-        time = machine.player.anima.GetCurrentAnimatorStateInfo(0).length;
+        time = 0.5f;
         
         machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
         machine.player.centerActions.arrowRenderers[1].sprite = machine.player.centerActions.options[8];
@@ -30,7 +28,7 @@ public class Collapse_EX : CharaBaseState
 
     public override void UpdateState(CharaStateManager machine)
     {
-        time = machine.ring.alarm[1] = machine.ring.Alarm(time, SwitchState);
+        time = machine.ring.alarm[1] = machine.ring.Alarm(time, SwitchState, machine);
         if (!machine.player.isGrounded)
         {
             machine.SwitchState(machine.fall);
@@ -52,8 +50,8 @@ public class Collapse_EX : CharaBaseState
         
     }
 
-    private void SwitchState()
+    private void SwitchState(CharaStateManager machine)
     {
-        charaMachine.SwitchState(charaMachine.standUp); //change this to stand up
+        machine.SwitchState(machine.standUp); //change this to stand up
     }
 }

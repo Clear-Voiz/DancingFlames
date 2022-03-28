@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class StandUp_EX : CharaBaseState
 {
-    private CharaStateManager charaMachine;
     private float time;
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("StandUp");
-        time = machine.player.anima.GetCurrentAnimatorStateInfo(0).length;
-        charaMachine = machine;
+        time = 0.4f;
 
         machine.player.hasAirdodged = false;
     }
@@ -22,7 +20,7 @@ public class StandUp_EX : CharaBaseState
 
     public override void UpdateState(CharaStateManager machine)
     {
-        time = machine.ring.alarm[2] = machine.ring.Alarm(time, SwitchState);
+        time = machine.ring.alarm[2] = machine.ring.Alarm(time, SwitchState, machine);
     }
 
     public override void ExitState(CharaStateManager machine)
@@ -40,8 +38,8 @@ public class StandUp_EX : CharaBaseState
         
     }
 
-    private void SwitchState()
+    private void SwitchState(CharaStateManager machine)
     {
-        charaMachine.SwitchState(charaMachine.stand);
+        machine.SwitchState(machine.stand);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.MemoryProfiler;
 using UnityEngine;
 
 public class Boost_Ex : CharaBaseState
@@ -24,7 +23,7 @@ public class Boost_Ex : CharaBaseState
         }
         else
         {
-            machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
+            machine.player.centerActions.arrowRenderers[2].sprite = (machine.player.hasAirdodged) ? machine.player.centerActions.options[8] : machine.player.centerActions.options[2];
             machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[7];
         }
 
@@ -54,7 +53,7 @@ public class Boost_Ex : CharaBaseState
         }
         else
         {
-            machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
+            machine.player.centerActions.arrowRenderers[2].sprite = (machine.player.hasAirdodged) ? machine.player.centerActions.options[8] : machine.player.centerActions.options[2];
             machine.player.centerActions.arrowRenderers[3].sprite = machine.player.centerActions.options[7];
         }
     }
@@ -111,6 +110,7 @@ public class Boost_Ex : CharaBaseState
             {
                 machine.player._rig.AddForce(new Vector2(0f, 5), ForceMode2D.Impulse);
                 machine.player.hasAirdodged = true;
+                //machine.player.centerActions.arrowRenderers[2].sprite = machine.player.centerActions.options[8];
                 machine.SwitchState(machine.aerialSweep);
             }
         }
@@ -134,6 +134,10 @@ public class Boost_Ex : CharaBaseState
         {
             machine.SwitchState(machine.pierceKick);
         }
+        else
+        {
+            machine.SwitchState(machine.reverseBoost);
+        }
     }
     
     private void LeftPierce(CharaStateManager machine)
@@ -141,6 +145,10 @@ public class Boost_Ex : CharaBaseState
         if (machine.player.face == -1)
         {
             machine.SwitchState(machine.pierceKick);
+        }
+        else
+        {
+            machine.SwitchState(machine.reverseBoost);
         }
     }
 }

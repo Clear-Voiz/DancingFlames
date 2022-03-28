@@ -6,6 +6,7 @@ public class FollowCam : MonoBehaviour
 {
     private Player _player;
     private Vector3 Spacing;
+    private float increment = -5f;
     void Start()
     {
         _player = FindObjectOfType<Player>();
@@ -16,5 +17,28 @@ public class FollowCam : MonoBehaviour
     void Update()
     {
         if (_player != null) transform.position = _player.transform.position+Spacing;
+        if (_player.isBoosting)
+        {
+            ZoomOut();
+        }
+        else
+        {
+            DefaultZoom();
+        }
+    }
+
+    private void DefaultZoom()
+    {
+        increment += 3f * Time.deltaTime;
+        increment = Mathf.Clamp(increment, -7f, -5f);
+        Spacing.z = increment;
+    }
+
+    private void ZoomOut()
+    {
+        increment -= 3f * Time.deltaTime;
+        increment = Mathf.Clamp(increment, -7f, -5f);
+        Spacing.z = increment;
+        Debug.Log(increment);
     }
 }
