@@ -11,6 +11,7 @@ public class TraffLight : MonoBehaviour
     private float secs = 1f;
     private float waitTime;
     private Animator anima;
+    public bool isIn;
 
     public enum Phase {Green, Yellow, Red}
 
@@ -38,6 +39,7 @@ public class TraffLight : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            isIn = true;
             if (state == 1)
             {
                 _machine.player.speed = 10f;
@@ -73,6 +75,7 @@ public class TraffLight : MonoBehaviour
                 anima.Play("Yellow");
                 secs = 3f;
                 spRe.color = new Color(1f, 0.75f, 0f, 0.67f);
+                if (isIn){_machine.player.speed = 10f;}
             }
             else if (state == 1)
             {
@@ -80,6 +83,7 @@ public class TraffLight : MonoBehaviour
                 anima.Play("Red");
                 secs = 3f;
                 spRe.color = new Color(1f, 0f, 0.2f, 0.67f);
+                if (isIn) _machine.player.speed = 0f;
             }
             else if (state == 2)
             {
@@ -87,11 +91,20 @@ public class TraffLight : MonoBehaviour
                 anima.Play("Green");
                 secs = 3f;
                 spRe.color = new Color(0f, 1f, 0.3f, 0.67f);
+                _machine.player.wait = false;
             }
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isIn = false;
+        }
+    }
+
+    /*private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
@@ -107,5 +120,5 @@ public class TraffLight : MonoBehaviour
                 Debug.Log("shouldwork");
             }
         }
-    }
+    }*/
 }

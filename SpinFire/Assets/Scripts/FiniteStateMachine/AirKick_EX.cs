@@ -9,8 +9,10 @@ public class AirKick_EX : CharaBaseState
     public override void EnterState(CharaStateManager machine)
     {
         machine.player.anima.Play("AirKick");
-        time[0] = 0.6f;
-        time[1] = 0.2f;
+        machine.ring.alarm[0] = 0.6f;
+        //time[0] = 0.6f;
+        machine.ring.alarm[3] = 0.2f;
+        //time[1] = 0.2f;
         machine.player.isAttacking = true;
 
         machine.player.centerActions.arrowRenderers[0].sprite = machine.player.centerActions.options[8];
@@ -34,10 +36,10 @@ public class AirKick_EX : CharaBaseState
     public override void UpdateState(CharaStateManager machine)
     {
         if (machine.player.isGrounded) machine.SwitchState(machine.land);
-        machine.ring.alarm[0] = machine.ring.Alarm(time[0],SwitchState, machine);
+        //machine.ring.alarm[0] = machine.ring.Alarm(time[0],SwitchState, machine);
         
-        time[0] = machine.ring.alarm[0] = machine.ring.Alarm(time[0],SwitchState, machine);
-        time[1] = machine.ring.alarm[3] = machine.ring.Alarm(time[1], FX, machine);
+        machine.ring.alarm[0] = machine.ring.Alarm(machine.ring.alarm[0],SwitchState, machine);
+        machine.ring.alarm[3] = machine.ring.Alarm(machine.ring.alarm[3], FX, machine);
     }
 
     public override void ExitState(CharaStateManager machine)
